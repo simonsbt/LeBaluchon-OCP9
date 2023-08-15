@@ -54,50 +54,58 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7f2-nf-xyJ">
-                                <rect key="frame" x="21.666666666666657" y="185" width="350" height="190"/>
+                                <rect key="frame" x="21" y="185" width="351" height="194.66666666666663"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0z1-s0-dZQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="350" height="32"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                        <menu key="menu" id="W55-et-nqU">
-                                            <children>
-                                                <command title="Item 1" id="qc5-Cl-34q"/>
-                                                <command title="Item 2" id="QpZ-mu-W5Q"/>
-                                            </children>
-                                        </menu>
-                                        <state key="normal" title="Button"/>
-                                    </button>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ysM-oI-fOy">
-                                        <rect key="frame" x="0.0" y="32" width="350" height="158"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hau-eX-iPD">
+                                        <rect key="frame" x="0.0" y="0.0" width="351" height="50"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Français" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InQ-SI-yIW">
+                                                <rect key="frame" x="1" y="8" width="349" height="34"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="InQ-SI-yIW" firstAttribute="centerY" secondItem="Hau-eX-iPD" secondAttribute="centerY" id="Gp6-tq-vVw"/>
+                                            <constraint firstItem="InQ-SI-yIW" firstAttribute="centerX" secondItem="Hau-eX-iPD" secondAttribute="centerX" id="XJ0-J5-0bt"/>
+                                            <constraint firstItem="InQ-SI-yIW" firstAttribute="top" secondItem="Hau-eX-iPD" secondAttribute="topMargin" id="gpB-He-TV4"/>
+                                            <constraint firstItem="InQ-SI-yIW" firstAttribute="leading" secondItem="Hau-eX-iPD" secondAttribute="leading" constant="1" id="qL2-Sp-cZ1"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fZh-Tm-1sk">
+                                        <rect key="frame" x="0.0" y="50" width="351" height="144.66666666666666"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ysM-oI-fOy">
+                                                <rect key="frame" x="6.6666666666666572" y="-1.6666666666666572" width="338" height="148"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="338" id="hJD-MA-oQV"/>
+                                                    <constraint firstAttribute="height" constant="148" id="tUm-pV-wr9"/>
+                                                </constraints>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="go"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </textView>
+                                        </subviews>
                                         <color key="backgroundColor" red="0.92158359290000003" green="0.92158359290000003" blue="0.92158359290000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="textColor" systemColor="labelColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="go"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </textView>
+                                        <constraints>
+                                            <constraint firstItem="ysM-oI-fOy" firstAttribute="centerY" secondItem="fZh-Tm-1sk" secondAttribute="centerY" id="5jG-1C-QoK"/>
+                                            <constraint firstItem="ysM-oI-fOy" firstAttribute="centerX" secondItem="fZh-Tm-1sk" secondAttribute="centerX" id="E2A-00-BhH"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="350" id="gfE-Ir-IiX"/>
-                                    <constraint firstAttribute="height" constant="190" id="tHq-zR-Uxc"/>
+                                    <constraint firstItem="fZh-Tm-1sk" firstAttribute="top" secondItem="7f2-nf-xyJ" secondAttribute="top" constant="50" id="1Zx-d3-mYd"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KCk-9S-9Hq">
-                                <rect key="frame" x="96.666666666666686" y="408" width="200" height="34.333333333333314"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="HKd-eo-HQ2"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Traduire"/>
-                                <connections>
-                                    <action selector="translateButtonTapped:" destination="k3D-dR-hOB" eventType="touchUpInside" id="D7Y-fE-8mg"/>
-                                </connections>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jAV-uD-94E">
                                 <rect key="frame" x="21.666666666666657" y="476" width="350" height="190"/>
                                 <subviews>
@@ -112,37 +120,64 @@
                                         </menu>
                                         <state key="normal" title="Traduire"/>
                                     </button>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0bV-n0-qOh">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7sh-kR-YV0">
                                         <rect key="frame" x="0.0" y="32" width="350" height="158"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="labelColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="go"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </textView>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0bV-n0-qOh">
+                                                <rect key="frame" x="5" y="5" width="340" height="148"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="340" id="gKZ-y0-xZC"/>
+                                                    <constraint firstAttribute="height" constant="148" id="tQp-dL-Sd3"/>
+                                                </constraints>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="go"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="NO"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.92158359290000003" green="0.92158359290000003" blue="0.92158359290000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="0bV-n0-qOh" firstAttribute="centerX" secondItem="7sh-kR-YV0" secondAttribute="centerX" id="2E3-Iq-7gL"/>
+                                            <constraint firstItem="0bV-n0-qOh" firstAttribute="centerY" secondItem="7sh-kR-YV0" secondAttribute="centerY" id="yVH-Wc-CSx"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="190" id="kFo-GU-mnp"/>
                                     <constraint firstAttribute="width" constant="350" id="z77-YU-nQA"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KCk-9S-9Hq">
+                                <rect key="frame" x="96.666666666666686" y="424" width="200" height="32.666666666666686"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="HKd-eo-HQ2"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Traduire"/>
+                                <connections>
+                                    <action selector="translateButtonTapped:" destination="k3D-dR-hOB" eventType="touchUpInside" id="D7Y-fE-8mg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="S7w-am-uWb"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="KCk-9S-9Hq" firstAttribute="top" secondItem="7f2-nf-xyJ" secondAttribute="bottom" constant="33" id="3HU-Jc-Ojx"/>
-                            <constraint firstItem="jAV-uD-94E" firstAttribute="top" secondItem="KCk-9S-9Hq" secondAttribute="bottom" constant="33.670000000000002" id="49b-kh-jtZ"/>
+                            <constraint firstItem="KCk-9S-9Hq" firstAttribute="top" secondItem="7f2-nf-xyJ" secondAttribute="bottom" constant="44.333333333333371" id="3HU-Jc-Ojx"/>
+                            <constraint firstItem="jAV-uD-94E" firstAttribute="top" secondItem="KCk-9S-9Hq" secondAttribute="bottom" constant="19.333333333333314" id="49b-kh-jtZ"/>
                             <constraint firstItem="jAV-uD-94E" firstAttribute="centerX" secondItem="24t-yN-96u" secondAttribute="centerX" id="763-Zs-eOu"/>
+                            <constraint firstItem="7f2-nf-xyJ" firstAttribute="leading" secondItem="S7w-am-uWb" secondAttribute="leading" constant="21" id="80H-NA-ALK"/>
+                            <constraint firstItem="S7w-am-uWb" firstAttribute="trailing" secondItem="7f2-nf-xyJ" secondAttribute="trailing" constant="21" id="JWb-DG-Rh8"/>
+                            <constraint firstItem="KCk-9S-9Hq" firstAttribute="centerY" secondItem="24t-yN-96u" secondAttribute="centerY" constant="14.333333333333371" id="QuF-aP-knC"/>
                             <constraint firstItem="7f2-nf-xyJ" firstAttribute="centerX" secondItem="24t-yN-96u" secondAttribute="centerX" id="URD-gr-5Oi"/>
                             <constraint firstItem="KCk-9S-9Hq" firstAttribute="centerX" secondItem="24t-yN-96u" secondAttribute="centerX" id="gNo-5W-rLv"/>
-                            <constraint firstItem="7f2-nf-xyJ" firstAttribute="top" secondItem="S7w-am-uWb" secondAttribute="top" constant="30" id="wVo-xg-fpp"/>
+                            <constraint firstItem="7f2-nf-xyJ" firstAttribute="top" secondItem="S7w-am-uWb" secondAttribute="top" constant="30" id="hSQ-fv-ZXQ"/>
+                            <constraint firstItem="S7w-am-uWb" firstAttribute="bottom" secondItem="jAV-uD-94E" secondAttribute="bottom" constant="103" id="tkj-bB-UsZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Traduction" id="pm0-5v-eBO"/>
                     <connections>
-                        <outlet property="sourceLanguageButton" destination="0z1-s0-dZQ" id="KLX-aW-gqs"/>
                         <outlet property="sourceTextView" destination="ysM-oI-fOy" id="6a8-kd-chO"/>
                         <outlet property="targetLanguageButton" destination="leC-dE-0jI" id="hA4-Zx-s2G"/>
                         <outlet property="targetTextView" destination="0bV-n0-qOh" id="BO9-Lv-3si"/>
