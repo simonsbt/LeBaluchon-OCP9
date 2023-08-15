@@ -17,7 +17,7 @@ class TranslateService {
     let sourceLanguage = "fr"
     var expressionToTranslate = ""
     
-    let apiKey = "AIzaSyA0z9SbolfPY72iayFXym_c-0-nqLxYIjk"
+    let apiKey = "xxxxxxxxx"
     let languages = ["English", "Spanish", "Japanese"]
     
     func getTranslation(callback: @escaping (Bool, TranslateResponse?) -> Void) {
