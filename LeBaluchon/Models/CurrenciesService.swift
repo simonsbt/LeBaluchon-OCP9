@@ -12,7 +12,7 @@ class CurrenciesService {
     let currencies = ["USD", "GBP", "JPY", "CAD"]
     private static let baseCurrency = "base=EUR"
     private static let targetCurrencies = "symbols=USD,GBP,JPY,CAD" /* https://fr.wikipedia.org/wiki/ISO_4217#Liste_triée_par_nom_d’unité_monétaire */
-    private static let apikey = "apikey=ssm2xm4x393FyOWzf53F4BNKQa7wFBjT"
+    private static let apikey = "apikey=xxxxxxxxxx"
     private let currenciesUrl = URL(string: "https://api.apilayer.com/fixer/latest?" + apikey + "&" + baseCurrency + "&" + targetCurrencies)!
     private var currenciesResponse = CurrenciesResponse()
     
