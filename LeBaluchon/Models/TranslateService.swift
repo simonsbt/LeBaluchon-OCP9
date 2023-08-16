@@ -43,6 +43,7 @@ class TranslateService {
         
         let session = URLSession(configuration: .default)
         
+        task?.cancel()
         task = session.dataTask(with: request) { (data, response, error) in
             
             DispatchQueue.main.async {
