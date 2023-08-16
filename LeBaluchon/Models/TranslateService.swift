@@ -22,23 +22,23 @@ class TranslateService {
     
     func getTranslation(callback: @escaping (Bool, TranslateResponse?) -> Void) {
         
-        var translateUrl: URL
-        let stringUrl = "https://translation.googleapis.com/language/translate/v2/?" + apiKey + "&q=" + expressionToTranslate + "&source=" + sourceLanguage + "&target=" + targetLanguage + "&format=text"
-        let encodedStringUrl = stringUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        
-        if let url = URL(string: encodedStringUrl) {
-            translateUrl = url
-            print(encodedStringUrl)
-        } else {
-            print(encodedStringUrl)
-            return
-        }
+//        var translateUrl: URL
+//        let stringUrl = "https://translation.googleapis.com/language/translate/v2/?" + apiKey + "&q=" + expressionToTranslate + "&source=" + sourceLanguage + "&target=" + targetLanguage + "&format=text"
+//        let encodedStringUrl = stringUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+//        
+//        if let url = URL(string: encodedStringUrl) {
+//            translateUrl = url
+//            print(encodedStringUrl)
+//        } else {
+//            print(encodedStringUrl)
+//            return
+//        }
 
-        
+        let translateUrl = URL(string: "https://translation.googleapis.com/language/translate/v2")
         var request = URLRequest(url: translateUrl)
         request.httpMethod = "POST"
         
-        let body = "key=\(apiKey)&q=\(expressionToTranslate)&source=\(sourceLanguage)&target=\(targetLanguage)"
+        let body = "key=\(apiKey)&q=\(expressionToTranslate)&source=\(sourceLanguage)&target=\(targetLanguage)&format=text"
         request.httpBody = body.data(using: .utf8)
         
         let session = URLSession(configuration: .default)
