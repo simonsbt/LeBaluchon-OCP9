@@ -67,7 +67,7 @@ class TranslateService {
             }
         }
         
-        task!.resume()
+        task?.resume()
     }
     
     private init() {}
