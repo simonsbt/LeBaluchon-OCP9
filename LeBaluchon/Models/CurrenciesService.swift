@@ -49,4 +49,6 @@ class CurrenciesService {
         }
         task.resume()!
     }
+
+    private init() {}
 }
