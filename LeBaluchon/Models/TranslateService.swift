@@ -17,7 +17,6 @@ class TranslateService {
     let sourceLanguage = "fr"
     var expressionToTranslate = ""
     
-    let apiKey = "xxxxxxxxx"
     let languages = ["English", "Spanish", "Japanese"]
     
     func getTranslation(callback: @escaping (Bool, TranslateResponse?) -> Void) {
@@ -34,7 +33,7 @@ class TranslateService {
 //            return
 //        }
 
-        let translateUrl = URL(string: "https://translation.googleapis.com/language/translate/v2")
+        let translateUrl = URL(string: "https://translation.googleapis.com/language/translate/v2?")!
         var request = URLRequest(url: translateUrl)
         request.httpMethod = "POST"
         
@@ -48,16 +47,19 @@ class TranslateService {
             
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
+                    print("a")
                     callback(false, nil)
                     return
                 }
                 
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                    print("b")
                     callback(false, nil)
                     return
                 }
                 
                 guard let decodedResponse = try? JSONDecoder().decode(TranslateResponse.self, from: data) else {
+                    print("c")
                     callback(false, nil)
                     return
                 }
@@ -69,6 +71,21 @@ class TranslateService {
         }
         
         task?.resume()
+    }
+    
+    private var apiKey: String {
+      get {
+        // 1
+        guard let filePath = Bundle.main.path(forResource: "config", ofType: "plist") else {
+          fatalError("Couldn't find file 'config.plist'.")
+        }
+        // 2
+        let plist = NSDictionary(contentsOfFile: filePath)
+        guard let value = plist?.object(forKey: "translateApiKey") as? String else {
+          fatalError("Couldn't find key 'translateApiKey' in 'config.plist'.")
+        }
+        return value
+      }
     }
     
     private init() {}

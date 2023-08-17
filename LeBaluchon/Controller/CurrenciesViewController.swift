@@ -8,9 +8,7 @@
 import UIKit
 
 class CurrenciesViewController: UIViewController {
-    
-    private let currenciesService = CurrenciesService()
-    
+        
     private var rate: Double = ((UserDefaults.standard.object(forKey: "USD") ?? 1.00) as! Double)
     
     @IBOutlet weak var currency2Button: UIButton!
@@ -47,7 +45,7 @@ class CurrenciesViewController: UIViewController {
         }
         
         var menu2Children: [UIAction] = []
-        for currency in currenciesService.currencies {
+        for currency in CurrenciesService.shared.currencies {
             menu2Children.append(UIAction(title: currency, state: currency == "USD" ? .on : .off, handler: optionsClosure))
         }
         currency2Button.menu = UIMenu(children: menu2Children)
@@ -65,7 +63,7 @@ class CurrenciesViewController: UIViewController {
                 lastAPICallDateLabel.text = "Dernière actualisation : " + dateFormatter.string(from: lastAPICallDate)
                 print("API was called today ! (\(dateFormatter.string(from: lastAPICallDate)))")
                 
-                let currenciesRatesKey = ["USD", "GBP", "JPY", "CAD"]
+                let currenciesRatesKey = CurrenciesService.shared.currencies
                 for key in currenciesRatesKey {
                     let rate = UserDefaults.standard.double(forKey: key)
                     print("\(rate) for the key \(key)")
@@ -79,17 +77,36 @@ class CurrenciesViewController: UIViewController {
         }
     }
     
-    
-    
     private func callAPI() {
         print("Need to call the API today")
-        let date = Date()
-        UserDefaults.standard.set(date, forKey: "lastAPICallDate")
-        currenciesService.getCurrenciesRates()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .medium
-        lastAPICallDateLabel.text = "Dernière actualisation : " + dateFormatter.string(from: date)
+        CurrenciesService.shared.getCurrenciesRates { (success, currencies) in
+            if success, let currencies = currencies {
+                print("success")
+                currencies.saveCurrenciesRates()
+                UserDefaults.standard.set(Date(), forKey: "lastAPICallDate")
+            } else {
+                self.presentAlert(title: "Error", message: "Erreur dans la récupération des taux de change")
+            }
+            self.refreshLastCallDate()
+        }
+    }
+    
+    private func refreshLastCallDate() {
+        if let lastAPICallDate = UserDefaults.standard.object(forKey: "lastAPICallDate") as? Date {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .long
+            dateFormatter.timeStyle = .medium
+            lastAPICallDateLabel.text = "Dernière actualisation : " + dateFormatter.string(from: lastAPICallDate)
+        } else {
+            lastAPICallDateLabel.text = "Dernière actualisation : N/A"
+        }
+        
+    }
+    
+    private func presentAlert(title: String, message: String) {
+          let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+          alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+       present(alertVC, animated: true, completion: nil)
     }
     
     private func convertCurrencies(sender: UITextField) {

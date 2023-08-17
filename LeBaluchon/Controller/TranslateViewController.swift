@@ -31,6 +31,7 @@ class TranslateViewController: UIViewController {
             default:
                 TranslateService.shared.targetLanguage = "en"
             }
+            self.translate()
         }
         
         var targetLanguagesChildren: [UIAction] = []
@@ -49,16 +50,20 @@ class TranslateViewController: UIViewController {
     
     @IBAction func translateButtonTapped(_ sender: UIButton) {
         view.endEditing(true)
+        translate()
+    }
+    
+    private func translate() {
         if let text = sourceTextView.text {
             TranslateService.shared.expressionToTranslate = text
         } else {
-            self.presentAlert(title: "Error", message: "Erreur avec le texte à traduire")
+            self.presentAlert(title: "Erreur", message: "Erreur avec le texte à traduire")
         }
         TranslateService.shared.getTranslation { (success, translation) in
             if success, let translation = translation {
                 self.targetTextView.text = translation.getTranslation()
             } else {
-                self.presentAlert(title: "Error", message: "Erreur lors de la traduction")
+                self.presentAlert(title: "Erreur", message: "Erreur lors de la traduction")
             }
             
         }

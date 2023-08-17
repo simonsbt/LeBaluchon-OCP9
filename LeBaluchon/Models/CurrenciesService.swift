@@ -15,16 +15,17 @@ class CurrenciesService {
     
     let currencies = ["USD", "GBP", "JPY", "CAD"]
     
-    private static let baseCurrency = "base=EUR"
-    private static let targetCurrencies = "symbols=USD,GBP,JPY,CAD" /* https://fr.wikipedia.org/wiki/ISO_4217#Liste_triée_par_nom_d’unité_monétaire */
-    private static let apikey = "apikey=xxxxxxxxxx"
+    private let baseCurrency = "base=EUR"
+    private let targetCurrencies = "symbols=USD,GBP,JPY,CAD" /* https://fr.wikipedia.org/wiki/ISO_4217#Liste_triée_par_nom_d’unité_monétaire */
+    //private let apikey = "apikey=xxxxxxxxxx"
     
-    func getCurrenciesRates() {
+    func getCurrenciesRates(callback: @escaping (Bool, CurrenciesResponse?) -> Void) {
         
-        let currenciesUrl = URL(string: "https://api.apilayer.com/fixer/latest?\(apikey)&\(baseCurrency)&\(targetCurrencies)")!
+        let currenciesUrl = URL(string: "https://api.apilayer.com/fixer/latest?apikey=\(apiKey)&\(baseCurrency)&\(targetCurrencies)")!
         
         let session = URLSession(configuration: .default)
         
+        task?.cancel()
         task = session.dataTask(with: currenciesUrl) { (data, response, error) in
 
             DispatchQueue.main.async {
@@ -42,12 +43,27 @@ class CurrenciesService {
                     callback(false, nil)
                     return
                 }
-
+                
                 let currenciesResponse: CurrenciesResponse = decodedResponse
-                currenciesResponse.saveCurrenciesRates()
+                callback(true, currenciesResponse)
             }
         }
-        task.resume()!
+        task?.resume()
+    }
+    
+    private var apiKey: String {
+      get {
+        // 1
+        guard let filePath = Bundle.main.path(forResource: "config", ofType: "plist") else {
+          fatalError("Couldn't find file 'config.plist'.")
+        }
+        // 2
+        let plist = NSDictionary(contentsOfFile: filePath)
+        guard let value = plist?.object(forKey: "currenciesApiKey") as? String else {
+          fatalError("Couldn't find key 'currenciesApiKey' in 'config.plist'.")
+        }
+        return value
+      }
     }
 
     private init() {}

@@ -78,20 +78,16 @@
                                         <rect key="frame" x="0.0" y="50" width="351" height="144.66666666666666"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ysM-oI-fOy">
-                                                <rect key="frame" x="6.6666666666666572" y="-1.6666666666666572" width="338" height="148"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="338" id="hJD-MA-oQV"/>
-                                                    <constraint firstAttribute="height" constant="148" id="tUm-pV-wr9"/>
-                                                </constraints>
+                                                <rect key="frame" x="5" y="5" width="341" height="134.66666666666666"/>
                                                 <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="go"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="10"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textView>
                                         </subviews>
@@ -99,7 +95,17 @@
                                         <constraints>
                                             <constraint firstItem="ysM-oI-fOy" firstAttribute="centerY" secondItem="fZh-Tm-1sk" secondAttribute="centerY" id="5jG-1C-QoK"/>
                                             <constraint firstItem="ysM-oI-fOy" firstAttribute="centerX" secondItem="fZh-Tm-1sk" secondAttribute="centerX" id="E2A-00-BhH"/>
+                                            <constraint firstItem="ysM-oI-fOy" firstAttribute="top" secondItem="fZh-Tm-1sk" secondAttribute="top" constant="5" id="Hxw-NY-rPM"/>
+                                            <constraint firstItem="ysM-oI-fOy" firstAttribute="leading" secondItem="fZh-Tm-1sk" secondAttribute="leading" constant="5" id="KKL-wQ-12c"/>
+                                            <constraint firstAttribute="trailing" secondItem="ysM-oI-fOy" secondAttribute="trailing" constant="5" id="RVc-Fb-UXQ"/>
+                                            <constraint firstAttribute="bottom" secondItem="ysM-oI-fOy" secondAttribute="bottom" constant="5" id="bdc-wa-X9G"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -125,12 +131,8 @@
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0bV-n0-qOh">
                                                 <rect key="frame" x="5" y="5" width="340" height="148"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="340" id="gKZ-y0-xZC"/>
-                                                    <constraint firstAttribute="height" constant="148" id="tQp-dL-Sd3"/>
-                                                </constraints>
                                                 <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="go"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="NO"/>
@@ -140,8 +142,18 @@
                                         <color key="backgroundColor" red="0.92158359290000003" green="0.92158359290000003" blue="0.92158359290000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="0bV-n0-qOh" firstAttribute="centerX" secondItem="7sh-kR-YV0" secondAttribute="centerX" id="2E3-Iq-7gL"/>
+                                            <constraint firstAttribute="trailing" secondItem="0bV-n0-qOh" secondAttribute="trailing" constant="5" id="kWn-bf-vYj"/>
+                                            <constraint firstAttribute="bottom" secondItem="0bV-n0-qOh" secondAttribute="bottom" constant="5" id="njz-nc-FUx"/>
+                                            <constraint firstItem="0bV-n0-qOh" firstAttribute="leading" secondItem="7sh-kR-YV0" secondAttribute="leading" constant="5" id="qh3-dJ-H3k"/>
+                                            <constraint firstItem="0bV-n0-qOh" firstAttribute="top" secondItem="7sh-kR-YV0" secondAttribute="top" constant="5" id="wdy-r6-4mR"/>
                                             <constraint firstItem="0bV-n0-qOh" firstAttribute="centerY" secondItem="7sh-kR-YV0" secondAttribute="centerY" id="yVH-Wc-CSx"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                                 <constraints>
