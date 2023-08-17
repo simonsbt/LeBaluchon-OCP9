@@ -11,6 +11,9 @@
 		0818633E2A726A42005B390D /* TranslateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0818633D2A726A42005B390D /* TranslateService.swift */; };
 		081863402A7270B8005B390D /* TranslateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0818633F2A7270B8005B390D /* TranslateViewController.swift */; };
 		085B894F2A8E35C6002CC9B3 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 085B894E2A8E35C6002CC9B3 /* config.plist */; };
+		085B89532A8E8DA2002CC9B3 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085B89522A8E8DA2002CC9B3 /* WeatherViewController.swift */; };
+		085B89572A8E9457002CC9B3 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085B89562A8E9457002CC9B3 /* WeatherService.swift */; };
+		085B89592A8E9469002CC9B3 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085B89582A8E9469002CC9B3 /* WeatherResponse.swift */; };
 		08C8CBB52A6EDD4900258B5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C8CBB42A6EDD4900258B5F /* AppDelegate.swift */; };
 		08C8CBB72A6EDD4900258B5F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C8CBB62A6EDD4900258B5F /* SceneDelegate.swift */; };
 		08C8CBBC2A6EDD4900258B5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08C8CBBA2A6EDD4900258B5F /* Main.storyboard */; };
@@ -46,6 +49,9 @@
 		0818633D2A726A42005B390D /* TranslateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateService.swift; sourceTree = "<group>"; };
 		0818633F2A7270B8005B390D /* TranslateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateViewController.swift; sourceTree = "<group>"; };
 		085B894E2A8E35C6002CC9B3 /* config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
+		085B89522A8E8DA2002CC9B3 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		085B89562A8E9457002CC9B3 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		085B89582A8E9469002CC9B3 /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		08C8CBB12A6EDD4900258B5F /* LeBaluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeBaluchon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C8CBB42A6EDD4900258B5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08C8CBB62A6EDD4900258B5F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -143,6 +149,7 @@
 			children = (
 				08C8CBE72A6EE0EC00258B5F /* CurrenciesViewController.swift */,
 				0818633F2A7270B8005B390D /* TranslateViewController.swift */,
+				085B89522A8E8DA2002CC9B3 /* WeatherViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -154,6 +161,8 @@
 				08C8CBEB2A6EF18F00258B5F /* CurrenciesService.swift */,
 				0818633B2A726A39005B390D /* TranslateResponse.swift */,
 				0818633D2A726A42005B390D /* TranslateService.swift */,
+				085B89582A8E9469002CC9B3 /* WeatherResponse.swift */,
+				085B89562A8E9457002CC9B3 /* WeatherService.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -309,7 +318,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				085B89572A8E9457002CC9B3 /* WeatherService.swift in Sources */,
 				08C8CBE82A6EE0EC00258B5F /* CurrenciesViewController.swift in Sources */,
+				085B89532A8E8DA2002CC9B3 /* WeatherViewController.swift in Sources */,
+				085B89592A8E9469002CC9B3 /* WeatherResponse.swift in Sources */,
 				08C8CBB52A6EDD4900258B5F /* AppDelegate.swift in Sources */,
 				08C8CBEA2A6EEFEC00258B5F /* CurrenciesResponse.swift in Sources */,
 				08C8CBB72A6EDD4900258B5F /* SceneDelegate.swift in Sources */,

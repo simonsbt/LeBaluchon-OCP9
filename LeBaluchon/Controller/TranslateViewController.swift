@@ -11,15 +11,18 @@ class TranslateViewController: UIViewController {
     
     @IBOutlet weak var targetLanguageButton: UIButton!
     @IBOutlet weak var sourceTextView: UITextView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var targetTextView: UITextView!
+    @IBOutlet weak var translateButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
-
+        
+        activityIndicator.isHidden = true
+        
         let targetOptionsClosure = { (action: UIAction) in
             switch self.targetLanguageButton.title(for: .normal) {
             case "English":
@@ -39,7 +42,6 @@ class TranslateViewController: UIViewController {
             targetLanguagesChildren.append(UIAction(title: language, state: language == "English" ? .on : .off, handler: targetOptionsClosure))
         }
         targetLanguageButton.menu = UIMenu(children: targetLanguagesChildren)
-        
     }
     
     private func presentAlert(title: String, message: String) {
@@ -50,7 +52,13 @@ class TranslateViewController: UIViewController {
     
     @IBAction func translateButtonTapped(_ sender: UIButton) {
         view.endEditing(true)
+        toggleActivityIndicator(shown: true)
         translate()
+    }
+    
+    private func toggleActivityIndicator(shown: Bool) {
+        activityIndicator.isHidden = !shown
+        translateButton.isHidden = shown
     }
     
     private func translate() {
@@ -60,12 +68,12 @@ class TranslateViewController: UIViewController {
             self.presentAlert(title: "Erreur", message: "Erreur avec le texte à traduire")
         }
         TranslateService.shared.getTranslation { (success, translation) in
+            self.toggleActivityIndicator(shown: false)
             if success, let translation = translation {
                 self.targetTextView.text = translation.getTranslation()
             } else {
                 self.presentAlert(title: "Erreur", message: "Erreur lors de la traduction")
             }
-            
         }
     }
     
