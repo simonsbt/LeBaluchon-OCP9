@@ -118,18 +118,17 @@ class CurrenciesViewController: UIViewController {
     }
     
     private func convertCurrencies(sender: UITextField) {
-        if let senderText = sender.text {
-            let text = senderText.replacingOccurrences(of: ",", with: ".")
+        if let text = sender.text?.replacingOccurrences(of: ",", with: ".") {
             if let value = Double(text) {
                 if sender.tag == 1 {
                     print("currency2Field")
                     let convertedValue = value * rate
-                    let roundedValue = Double(round(1000 * convertedValue) / 1000)
+                    let roundedValue = Double(round(100 * convertedValue) / 100)
                     currency2Field.text = String(roundedValue)
                 } else {
                     print("baseCurrencyField")
                     let convertedValue = value / rate
-                    let roundedValue = Double(round(1000 * convertedValue) / 1000)
+                    let roundedValue = Double(round(100 * convertedValue) / 100)
                     baseCurrencyField.text = String(roundedValue)
                 }
             } else {
