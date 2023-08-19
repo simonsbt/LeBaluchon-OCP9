@@ -11,6 +11,11 @@ class CurrenciesViewController: UIViewController {
         
     private var rate: Double = ((UserDefaults.standard.object(forKey: "USD") ?? 1.00) as! Double)
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var containerView1: UIView!
+    @IBOutlet weak var containerView2: UIView!
+    
     @IBOutlet weak var currency2Button: UIButton!
     @IBOutlet weak var lastAPICallDateLabel: UILabel!
     
@@ -20,9 +25,12 @@ class CurrenciesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        view.addGestureRecognizer(tap)
+        
+        // Do any additional setup after loading the view.
+        self.showActivityIndicator(show: true)
         let optionsClosure = { (action: UIAction) in
             switch self.currency2Button.title(for: .normal) {
             case "USD":
@@ -53,39 +61,39 @@ class CurrenciesViewController: UIViewController {
         checkIfAPICalledToday()
     }
     
+    private func showActivityIndicator(show: Bool) {
+        containerView1.isHidden = show
+        containerView2.isHidden = show
+        activityIndicator.isHidden = !show
+    }
+    
     private func checkIfAPICalledToday() {
         if let lastAPICallDate = UserDefaults.standard.object(forKey: "lastAPICallDate") as? Date {
             if Calendar.current.isDateInToday(lastAPICallDate) {
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateStyle = .long
-                dateFormatter.timeStyle = .medium
-                lastAPICallDateLabel.text = "Dernière actualisation : " + dateFormatter.string(from: lastAPICallDate)
-                print("API was called today ! (\(dateFormatter.string(from: lastAPICallDate)))")
-                
-                let currenciesRatesKey = CurrenciesService.shared.currencies
-                for key in currenciesRatesKey {
-                    let rate = UserDefaults.standard.double(forKey: key)
-                    print("\(rate) for the key \(key)")
-                }
-                
+                self.refreshLastCallDate()
+                self.showActivityIndicator(show: false)
             } else {
-                callAPI()
+                callAPI { success in
+                    self.showActivityIndicator(show: !success)
+                }
             }
         } else {
-            callAPI()
+            callAPI { success in
+                self.showActivityIndicator(show: !success)
+            }
         }
     }
     
-    private func callAPI() {
+    private func callAPI(callback: @escaping (Bool) -> Void) {
         print("Need to call the API today")
         CurrenciesService.shared.getCurrenciesRates { (success, currencies) in
             if success, let currencies = currencies {
-                print("success")
                 currencies.saveCurrenciesRates()
                 UserDefaults.standard.set(Date(), forKey: "lastAPICallDate")
+                callback(true)
             } else {
                 self.presentAlert(title: "Error", message: "Erreur dans la récupération des taux de change")
+                callback(false)
             }
             self.refreshLastCallDate()
         }

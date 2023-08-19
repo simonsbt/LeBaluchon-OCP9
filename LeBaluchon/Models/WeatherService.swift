@@ -14,21 +14,24 @@ class WeatherService {
     static var shared = WeatherService()
     
     let currencies = ["USD", "GBP", "JPY", "CAD"]
+    
+    let citiesLatLon = ["lat=50.43333&lon=2.8333", "lat=40.7127&lon=-74.0059", "lat=35.0210700&lon=135.7538500"]
 
-    private let lat = "lat=50.73"
-    private let lon = "lon=3.1"
+    private let latLonLens = "lat=50.43333&lon=2.8333"
+    private let latLonNY = "lat=40.7127&lon=-74.0059"
+    private let latLonKyoto = "lat=35.0210700&lon=135.7538500"
+    
     private let units = "units=metric"
     private let language = "lang=fr"
     
-    func getWeather(callback: @escaping (Bool, WeatherResponse?) -> Void) {
+    func getWeather(cityLatLon: String, callback: @escaping (Bool, WeatherResponse?) -> Void) {
         
-        let weathersUrl = URL(string: "https://api.openweathermap.org/data/2.5/weather?appid=\(apiKey)&\(lat)&\(lon)&\(units)&\(language)")!
+        let weatherUrl = URL(string: "https://api.openweathermap.org/data/2.5/weather?appid=\(apiKey)&\(cityLatLon)&\(units)&\(language)")!
         
-        print(weathersUrl)
         let session = URLSession(configuration: .default)
 
-        task?.cancel()
-        task = session.dataTask(with: weathersUrl) { (data, response, error) in
+        //task?.cancel()
+        task = session.dataTask(with: weatherUrl) { (data, response, error) in
 
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
