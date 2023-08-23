@@ -10,10 +10,6 @@ import UIKit
 
 struct WeatherResponse: Codable {
 
-    enum Main: String, Decodable {
-      
-    }
-
     let coord: Coord
     let weather: [Weather]
     let main: Main
