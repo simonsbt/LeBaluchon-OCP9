@@ -11,14 +11,16 @@ class CurrenciesService {
 
     private var task: URLSessionDataTask?
 
-    static var shared = CurrenciesService()
+    static var shared = CurrenciesService() // Creation of the Singleton pattern.
     
     let currencies = ["USD", "GBP", "JPY", "CAD"]
     
     private let baseCurrency = "base=EUR"
     private let targetCurrencies = "symbols=USD,GBP,JPY,CAD" /* https://fr.wikipedia.org/wiki/ISO_4217#Liste_triée_par_nom_d’unité_monétaire */
     
-    func getCurrenciesRates(callback: @escaping (Bool, CurrenciesResponse?) -> Void) {
+    /// Fetch the currencies rates.
+    /// - Parameter callback: escape the function with a bool representing the success.
+    func getCurrenciesRates(callback: @escaping (Bool) -> Void) {
         
         let currenciesUrl = URL(string: "https://api.apilayer.com/fixer/latest?apikey=\(apiKey)&\(baseCurrency)&\(targetCurrencies)")!
         
@@ -44,24 +46,25 @@ class CurrenciesService {
                 }
                 
                 let currenciesResponse: CurrenciesResponse = decodedResponse
-                callback(true, currenciesResponse)
+                currenciesResponse.saveCurrenciesRates()
+                callback(true)
             }
         }
         task?.resume()
     }
 
+    /// Checks if the API has already been called during the day.
+    /// If not, calls the API and saves the rates.
+    /// - Parameter callback: escape the function with a bool representing the success.
     func callAPI(callback: @escaping (Bool) -> Void) {
         if let lastAPICallDate = UserDefaults.standard.object(forKey: "lastAPICallDate") as? Date {
             if Calendar.current.isDateInToday(lastAPICallDate) {
-                self.refreshLastCallDate()
-                self.showActivityIndicator(show: false)
                 callback(true)
             }
         }
         self.getCurrenciesRates { (success, currencies) in
-            if success, let currencies = currencies {
-                currencies.saveCurrenciesRates()
-                UserDefaults.standard.set(Date(), forKey: "lastAPICallDate")
+            if success {
+                UserDefaults.standard.set(Date(), forKey: "lastAPICallDate") // Save the date of the call.
                 callback(true)
             } else {
                 callback(false)
@@ -69,19 +72,21 @@ class CurrenciesService {
         }
     }
     
+    /// Computed var returning the apiKey from config.plist.
+    /// Used to secure apiKey from Git commits.
     private var apiKey: String {
-      get {
-        // 1
-        guard let filePath = Bundle.main.path(forResource: "config", ofType: "plist") else {
-          fatalError("Couldn't find file 'config.plist'.")
+        get {
+
+            guard let filePath = Bundle.main.path(forResource: "config", ofType: "plist") else {
+                fatalError("Couldn't find file 'config.plist'.")
+            }
+
+            let plist = NSDictionary(contentsOfFile: filePath)
+            guard let value = plist?.object(forKey: "currenciesApiKey") as? String else {
+                fatalError("Couldn't find key 'currenciesApiKey' in 'config.plist'.")
+            }
+            return value
         }
-        // 2
-        let plist = NSDictionary(contentsOfFile: filePath)
-        guard let value = plist?.object(forKey: "currenciesApiKey") as? String else {
-          fatalError("Couldn't find key 'currenciesApiKey' in 'config.plist'.")
-        }
-        return value
-      }
     }
 
     private init() {}
