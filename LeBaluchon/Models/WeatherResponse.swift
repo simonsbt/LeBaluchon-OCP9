@@ -9,10 +9,15 @@ import Foundation
 import UIKit
 
 struct WeatherResponse: Codable {
-    let coord: Coord?
-    let weather: [Weather]?
-    let main: Main?
-    let timezone: Int?
+
+    enum Main: String, Decodable {
+      
+    }
+
+    let coord: Coord
+    let weather: [Weather]
+    let main: Main
+    let timezone: Int
     let name: String?
     
     func getLocalTime() -> String {
@@ -41,24 +46,22 @@ struct WeatherResponse: Codable {
 }
 
 struct Coord: Codable {
-    let lat: Double?
-    let lon: Double?
+    let lat: Double
+    let lon: Double
 }
 
 struct Weather: Codable {
-    let id: Int?
-    let main: String?
-    let weatherDescription: String?
-    let icon: String?
+    let id: Int
+    let main: String
+    let weatherDescription: String
+    let icon: String
     
     private enum CodingKeys: String, CodingKey {
         case weatherDescription = "description"
-        case id
-        case main
-        case icon
+        case id, main, icon
     }
 }
 
 struct Main: Codable {
-    let temp: Double?
+    let temp: Double
 }
