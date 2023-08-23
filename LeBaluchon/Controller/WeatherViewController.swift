@@ -39,12 +39,12 @@ class WeatherViewController: UIViewController {
     
     private func displayWeatherInfos(weatherResponse: WeatherResponse, tag: Int) {
         citiesView[tag].backgroundColor = weatherResponse.getViewColor()
-        if let temp = weatherResponse.main?.temp as? Double {
-            citiesTempLabels[tag].text = String(format: "%.1f", temp) + "°C"
-        }
-        if let description = weatherResponse.weather?[0].weatherDescription {
-            citiesWeatherDescriptionLabels[tag].text = description.capitalizingFirstLetter()
-        }
+        let temp = weatherResponse.main.temp
+        citiesTempLabels[tag].text = String(format: "%.1f", temp) + "°C"
+        
+        let description = weatherResponse.weather[0].weatherDescription
+        citiesWeatherDescriptionLabels[tag].text = description.capitalizingFirstLetter()
+        
         if let cityName = weatherResponse.name {
             citiesNameLabels[tag].text = cityName
         }

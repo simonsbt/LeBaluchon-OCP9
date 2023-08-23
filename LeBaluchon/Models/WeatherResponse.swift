@@ -17,7 +17,7 @@ struct WeatherResponse: Codable {
     let name: String?
     
     func getLocalTime() -> String {
-        if let timeZone = TimeZone(secondsFromGMT: timezone ?? 0) {
+        if let timeZone = TimeZone(secondsFromGMT: timezone) {
 
             let dateFormatter = DateFormatter()
 
@@ -30,7 +30,7 @@ struct WeatherResponse: Codable {
     }
     
     func getViewColor() -> UIColor {
-        switch(weather?[0].main) {
+        switch(weather[0].main) {
         case "Rain", "Drizzle", "Thunderstorm":
             return UIColor(named: "rain")!
         case "Snow", "Atmosphere", "Clouds":

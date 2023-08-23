@@ -280,7 +280,7 @@
         <scene sceneID="WYx-Bs-H2C">
             <objects>
                 <viewController id="k3D-dR-hOB" userLabel="Translate" customClass="TranslateViewController" customModule="LeBaluchon" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="24t-yN-96u">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="24t-yN-96u">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -290,8 +290,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hau-eX-iPD">
                                         <rect key="frame" x="0.0" y="10" width="430" height="20"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Français" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InQ-SI-yIW">
-                                                <rect key="frame" x="20" y="0.0" width="66" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Détecter la langue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InQ-SI-yIW">
+                                                <rect key="frame" x="20" y="0.0" width="141.33333333333334" height="20"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                 <color key="textColor" systemColor="secondaryLabelColor"/>
                                                 <nil key="highlightedColor"/>
@@ -455,6 +455,7 @@
                     <navigationItem key="navigationItem" title="Traduction" largeTitleDisplayMode="always" id="pm0-5v-eBO"/>
                     <connections>
                         <outlet property="activityIndicator" destination="j3e-gI-j98" id="gyG-KG-HRE"/>
+                        <outlet property="sourceLanguageLabel" destination="InQ-SI-yIW" id="8qU-KZ-Bte"/>
                         <outlet property="sourceTextView" destination="zGi-Ck-mKK" id="KVg-cL-RUz"/>
                         <outlet property="targetLanguageButton" destination="leC-dE-0jI" id="hA4-Zx-s2G"/>
                         <outlet property="targetTextView" destination="0bV-n0-qOh" id="BO9-Lv-3si"/>
@@ -541,8 +542,7 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="currency2ValueChanged:" destination="R39-ov-J95" eventType="editingChanged" id="UG8-7p-krK"/>
-                                                    <action selector="currency2ValueChanged:" destination="R39-ov-J95" eventType="editingDidEnd" id="zTv-wJ-WdF"/>
+                                                    <action selector="targetCurrencyValueChanged:" destination="R39-ov-J95" eventType="editingChanged" id="UG8-7p-krK"/>
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dra-Gq-apm">
@@ -642,9 +642,9 @@
                         <outlet property="baseCurrencyField" destination="kJu-N6-AaI" id="YwZ-ub-usg"/>
                         <outlet property="containerView1" destination="DVQ-7i-iVh" id="9H6-Bt-wJm"/>
                         <outlet property="containerView2" destination="cXi-pj-Ygr" id="78e-r1-T9i"/>
-                        <outlet property="currency2Button" destination="dra-Gq-apm" id="JYn-LZ-YmJ"/>
-                        <outlet property="currency2Field" destination="Guf-SR-Ava" id="aPO-Tz-7cC"/>
                         <outlet property="lastAPICallDateLabel" destination="6hR-6h-DOj" id="dDJ-Mv-YUG"/>
+                        <outlet property="targetCurrencyButton" destination="dra-Gq-apm" id="JYn-LZ-YmJ"/>
+                        <outlet property="targetCurrencyField" destination="Guf-SR-Ava" id="aPO-Tz-7cC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5fI-ys-rln" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

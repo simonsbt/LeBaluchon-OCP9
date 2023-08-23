@@ -14,12 +14,50 @@ class TranslateService {
     static var shared = TranslateService()
     
     var targetLanguage = "en"
-    let sourceLanguage = "fr"
+    var sourceLanguage = "fr"
     var expressionToTranslate = ""
     
-    let languages = ["English", "Spanish", "Japanese"]
+    let languages = ["Français", "Spanish", "Japanese", "English"]
     
-    func getTranslation(callback: @escaping (Bool, TranslateResponse?) -> Void) {
+    func detectLanguage(callback: @escaping (Bool, String?) -> Void) {
+        
+        let detectUrl = URL(string: "https://translation.googleapis.com/language/translate/v2/detect/?")!
+        var request = URLRequest(url: detectUrl)
+        request.httpMethod = "POST"
+        
+        let body = "key=\(apiKey)&q=\(expressionToTranslate)"
+        request.httpBody = body.data(using: .utf8)
+        
+        let session = URLSession(configuration: .default)
+        
+        task?.cancel()
+        task = session.dataTask(with: request) { (data, response, error) in
+            
+            DispatchQueue.main.async {
+                guard let data = data, error == nil else {
+                    callback(false, nil)
+                    return
+                }
+                
+                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                    callback(false, nil)
+                    return
+                }
+                
+                guard let decodedResponse = try? JSONDecoder().decode(DetectLanguageResponse.self, from: data) else {
+                    callback(false, nil)
+                    return
+                }
+                
+                let detectResponse: DetectLanguageResponse = decodedResponse
+                let detectedLanguage = detectResponse.getDetectedLanguage()
+                callback(true, detectedLanguage)
+            }
+        }
+        task?.resume()
+    }
+    
+    func getTranslation(callback: @escaping (Bool, String?) -> Void) {
 
         let translateUrl = URL(string: "https://translation.googleapis.com/language/translate/v2?")!
         var request = URLRequest(url: translateUrl)
@@ -50,8 +88,8 @@ class TranslateService {
                 }
                 
                 let translateResponse: TranslateResponse = decodedResponse
-                
-                callback(true, translateResponse)
+                let translation = translateResponse.getTranslation()
+                callback(true, translation)
             }
         }
         

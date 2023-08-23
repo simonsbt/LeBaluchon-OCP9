@@ -10,7 +10,9 @@ import UIKit
 class TranslateViewController: UIViewController {
     
     @IBOutlet weak var targetLanguageButton: UIButton!
-
+    
+    @IBOutlet weak var sourceLanguageLabel: UILabel!
+    
     @IBOutlet weak var translateButton: UIButton!
 
     @IBOutlet weak var sourceTextView: UITextView!
@@ -32,6 +34,8 @@ class TranslateViewController: UIViewController {
             switch self.targetLanguageButton.title(for: .normal) {
             case "English":
                 TranslateService.shared.targetLanguage = "en"
+            case "Français":
+                TranslateService.shared.targetLanguage = "fr"
             case "Spanish":
                 TranslateService.shared.targetLanguage = "es"
             case "Japanese":
@@ -39,7 +43,7 @@ class TranslateViewController: UIViewController {
             default:
                 TranslateService.shared.targetLanguage = "en"
             }
-            self.translate() // Automatically translates when the target language is changed.
+            // self.translate() // Automatically translates when the target language is changed.
         }
         
         /// Creates items corresponding to languages to add them in the menu.
@@ -52,31 +56,47 @@ class TranslateViewController: UIViewController {
     
     @IBAction func translateButtonTapped(_ sender: UIButton) {
         view.endEditing(true)
-        showActivityIndicator(shown: true)
-        translate()
+        if sourceTextView.text.count >= 1 {
+            showActivityIndicator(show: true)
+            translate()
+        }
     }
     
     /// Executed when the translateButton is tapped.
-    /// 
     private func translate() {
         if let text = sourceTextView.text {
             TranslateService.shared.expressionToTranslate = text // Save the expression to translate.
         } else {
             self.presentAlert(title: "Erreur", message: "Erreur lors de la récupération du texte")
         }
-        TranslateService.shared.getTranslation { (success, translation) in
-            self.showActivityIndicator(shown: false)
-            if success, let translation = translation {
-                self.targetTextView.text = translation.getTranslation() // Display the translation.
+        TranslateService.shared.detectLanguage { (success, detectedLanguage) in
+            if success, let detectedLanguage = detectedLanguage {
+                if let language = Locale.current.localizedString(forLanguageCode: detectedLanguage) {
+                    self.sourceLanguageLabel.text = "Détecter la langue : \(language)"
+                }
+                /// Translate an expression from a language to the same language doesn't work in this API
+                if detectedLanguage == TranslateService.shared.targetLanguage {
+                    self.targetTextView.text = TranslateService.shared.expressionToTranslate
+                } else {
+                    TranslateService.shared.sourceLanguage = detectedLanguage
+                    TranslateService.shared.getTranslation { (success, translation) in
+                        if success, let translation = translation {
+                            self.targetTextView.text = translation // Display the translation.
+                        } else {
+                            self.presentAlert(title: "Erreur", message: "Erreur lors de la traduction")
+                        }
+                    }
+                }
             } else {
-                self.presentAlert(title: "Erreur", message: "Erreur lors de la traduction")
+                self.presentAlert(title: "Erreur", message: "Erreur lors de la détection de la langue")
             }
+            self.showActivityIndicator(show: false)
         }
     }
 
     /// Used to hide/show the UIAtivityIndicatorView and the UITextFields.
     private func showActivityIndicator(show: Bool) {
-        translateButton.isHidden = shown
+        translateButton.isHidden = show
         activityIndicator.isHidden = !show
     }
 

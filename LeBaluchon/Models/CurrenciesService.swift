@@ -14,6 +14,7 @@ class CurrenciesService {
     static var shared = CurrenciesService() // Creation of the Singleton pattern.
     
     let currencies = ["USD", "GBP", "JPY", "CAD"]
+    var rate: Double = 1.00
     
     private let baseCurrency = "base=EUR"
     private let targetCurrencies = "symbols=USD,GBP,JPY,CAD" /* https://fr.wikipedia.org/wiki/ISO_4217#Liste_triée_par_nom_d’unité_monétaire */
@@ -31,20 +32,19 @@ class CurrenciesService {
 
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
-                    callback(false, nil)
+                    callback(false)
                     return
                 }
 
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    callback(false, nil)
+                    callback(false)
                     return
                 }
 
                 guard let decodedResponse = try? JSONDecoder().decode(CurrenciesResponse.self, from: data) else {
-                    callback(false, nil)
+                    callback(false)
                     return
                 }
-                
                 let currenciesResponse: CurrenciesResponse = decodedResponse
                 currenciesResponse.saveCurrenciesRates()
                 callback(true)
@@ -60,9 +60,10 @@ class CurrenciesService {
         if let lastAPICallDate = UserDefaults.standard.object(forKey: "lastAPICallDate") as? Date {
             if Calendar.current.isDateInToday(lastAPICallDate) {
                 callback(true)
+                return
             }
         }
-        self.getCurrenciesRates { (success, currencies) in
+        self.getCurrenciesRates { (success) in
             if success {
                 UserDefaults.standard.set(Date(), forKey: "lastAPICallDate") // Save the date of the call.
                 callback(true)

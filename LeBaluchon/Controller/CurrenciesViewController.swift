@@ -9,21 +9,17 @@ import UIKit
 
 class CurrenciesViewController: UIViewController {
     
-    // TODO: rename currency2Field to targetCurrencyField and currency2Button to targetCurrencyButton
-
-    private var rate: Double = ((UserDefaults.standard.object(forKey: "USD") ?? 1.00) as! Double)
-    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var containerView1: UIView!
     @IBOutlet weak var containerView2: UIView!
     
-    @IBOutlet weak var currency2Button: UIButton!
+    @IBOutlet weak var targetCurrencyButton: UIButton!
 
     @IBOutlet weak var lastAPICallDateLabel: UILabel!
     
     @IBOutlet weak var baseCurrencyField: UITextField!
-    @IBOutlet weak var currency2Field: UITextField!
+    @IBOutlet weak var targetCurrencyField: UITextField!
     
     
     override func viewDidLoad() {
@@ -37,22 +33,22 @@ class CurrenciesViewController: UIViewController {
 
         /// Executed when the currency target is changed, handled by each item of the menu
         let optionsClosure = { (action: UIAction) in
-            switch self.currency2Button.title(for: .normal) {
+            switch self.targetCurrencyButton.title(for: .normal) {
             case "USD":
-                self.rate = (UserDefaults.standard.object(forKey: "USD") as! Double)
-                self.currency2Field.placeholder = "$"
+                CurrenciesService.shared.rate = (UserDefaults.standard.object(forKey: "USD") as! Double)
+                self.targetCurrencyField.placeholder = "$"
             case "GBP":
-                self.rate = (UserDefaults.standard.object(forKey: "GBP") as! Double)
-                self.currency2Field.placeholder = "£"
+                CurrenciesService.shared.rate = (UserDefaults.standard.object(forKey: "GBP") as! Double)
+                self.targetCurrencyField.placeholder = "£"
             case "JPY":
-                self.rate = (UserDefaults.standard.object(forKey: "JPY") as! Double)
-                self.currency2Field.placeholder = "¥"
+                CurrenciesService.shared.rate = (UserDefaults.standard.object(forKey: "JPY") as! Double)
+                self.targetCurrencyField.placeholder = "¥"
             case "CAD":
-                self.rate = (UserDefaults.standard.object(forKey: "CAD") as! Double)
-                self.currency2Field.placeholder = "$ CA"
+                CurrenciesService.shared.rate = (UserDefaults.standard.object(forKey: "CAD") as! Double)
+                self.targetCurrencyField.placeholder = "$ CA"
             default:
-                self.rate = (UserDefaults.standard.object(forKey: "USD") as! Double)
-                self.currency2Field.placeholder = "$"
+                CurrenciesService.shared.rate = (UserDefaults.standard.object(forKey: "USD") as! Double)
+                self.targetCurrencyField.placeholder = "$"
             }
             self.convertCurrencies(sender: self.baseCurrencyField)
         }
@@ -62,7 +58,7 @@ class CurrenciesViewController: UIViewController {
         for currency in CurrenciesService.shared.currencies {
             menu2Children.append(UIAction(title: currency, state: currency == "USD" ? .on : .off, handler: optionsClosure))
         }
-        currency2Button.menu = UIMenu(children: menu2Children)
+        targetCurrencyButton.menu = UIMenu(children: menu2Children)
         
         CurrenciesService.shared.callAPI { success in
             if !success {
@@ -70,6 +66,9 @@ class CurrenciesViewController: UIViewController {
             }
             self.refreshLastCallDate()   
             self.showActivityIndicator(show: false)
+            if let rate = (UserDefaults.standard.object(forKey: "USD") ?? 1.00) as? Double {
+                CurrenciesService.shared.rate = rate
+            }
         }
     }
     
@@ -89,27 +88,31 @@ class CurrenciesViewController: UIViewController {
     private func convertCurrencies(sender: UITextField) {
         if let text = sender.text?.replacingOccurrences(of: ",", with: ".") {
             if let value = Double(text) {
+                let rate = CurrenciesService.shared.rate
                 if sender.tag == 1 {
                     let convertedValue = value * rate
                     let roundedValue = Double(round(100 * convertedValue) / 100) // Round the value to 2 decimals
-                    currency2Field.text = String(roundedValue)
+                    targetCurrencyField.text = String(roundedValue)
                 } else {
                     let convertedValue = value / rate
                     let roundedValue = Double(round(100 * convertedValue) / 100) // Round the value to 2 decimals
                     baseCurrencyField.text = String(roundedValue)
                 }
             } else { // Executed when the value entered cannot be converted to Double type
-                self.presentAlert(title: "Error", message: "Erreur lors de la conversion")
-                currency2Field.text = ""
+                if text.count >= 1 {
+                    self.presentAlert(title: "Error", message: "Erreur lors de la conversion")
+                }
+                targetCurrencyField.text = ""
                 baseCurrencyField.text = ""
             }
+        } else {
+            self.presentAlert(title: "Error", message: "Erreur lors de la lecture des données")
         }
-        self.presentAlert(title: "Error", message: "Erreur lors de la lecture des données")
     }
     
     // TODO: Rename currency2ValueChanged to targetCurrencyValueChanged
 
-    @IBAction func currency2ValueChanged(_ sender: UITextField) {
+    @IBAction func targetCurrencyValueChanged(_ sender: UITextField) {
         convertCurrencies(sender: sender)
     }
     
