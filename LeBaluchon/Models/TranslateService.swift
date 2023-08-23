@@ -20,18 +20,6 @@ class TranslateService {
     let languages = ["English", "Spanish", "Japanese"]
     
     func getTranslation(callback: @escaping (Bool, TranslateResponse?) -> Void) {
-        
-//        var translateUrl: URL
-//        let stringUrl = "https://translation.googleapis.com/language/translate/v2/?" + apiKey + "&q=" + expressionToTranslate + "&source=" + sourceLanguage + "&target=" + targetLanguage + "&format=text"
-//        let encodedStringUrl = stringUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-//        
-//        if let url = URL(string: encodedStringUrl) {
-//            translateUrl = url
-//            print(encodedStringUrl)
-//        } else {
-//            print(encodedStringUrl)
-//            return
-//        }
 
         let translateUrl = URL(string: "https://translation.googleapis.com/language/translate/v2?")!
         var request = URLRequest(url: translateUrl)
@@ -47,19 +35,16 @@ class TranslateService {
             
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
-                    print("a")
                     callback(false, nil)
                     return
                 }
                 
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    print("b")
                     callback(false, nil)
                     return
                 }
                 
                 guard let decodedResponse = try? JSONDecoder().decode(TranslateResponse.self, from: data) else {
-                    print("c")
                     callback(false, nil)
                     return
                 }

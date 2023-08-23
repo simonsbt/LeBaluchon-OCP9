@@ -29,8 +29,6 @@ class WeatherViewController: UIViewController {
             UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self.loadData))
         )
         toolbarItems = items
-        
-        // Do any additional setup after loading the view.
     }
     
     private func presentAlert(title: String, message: String) {
@@ -53,15 +51,6 @@ class WeatherViewController: UIViewController {
         citiesLocalHourLabels[tag].text = weatherResponse.getLocalTime()
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     @objc private func loadData() {
         for indicator in activityIndicators {
@@ -75,7 +64,7 @@ class WeatherViewController: UIViewController {
                         self.displayWeatherInfos(weatherResponse: weatherResponse, tag: index)
                         self.activityIndicators[index].isHidden = true
                     } else {
-                        self.presentAlert(title: "Erreur", message: "N/A at index \(index)")
+                        self.presentAlert(title: "Erreur", message: "Erreur lors de la récupération des données")
                     }
                 })
             }

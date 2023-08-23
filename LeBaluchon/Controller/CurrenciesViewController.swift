@@ -58,45 +58,19 @@ class CurrenciesViewController: UIViewController {
         }
         currency2Button.menu = UIMenu(children: menu2Children)
         
-        checkIfAPICalledToday()
+        CurrenciesService.shared.callAPI { success in
+            if !success {
+                self.presentAlert(title: "Error", message: "Erreur dans la récupération des taux de change")
+            }
+            self.refreshLastCallDate()   
+            self.showActivityIndicator(show: false)
+        }
     }
     
     private func showActivityIndicator(show: Bool) {
         containerView1.isHidden = show
         containerView2.isHidden = show
         activityIndicator.isHidden = !show
-    }
-    
-    private func checkIfAPICalledToday() {
-        if let lastAPICallDate = UserDefaults.standard.object(forKey: "lastAPICallDate") as? Date {
-            if Calendar.current.isDateInToday(lastAPICallDate) {
-                self.refreshLastCallDate()
-                self.showActivityIndicator(show: false)
-            } else {
-                callAPI { success in
-                    self.showActivityIndicator(show: !success)
-                }
-            }
-        } else {
-            callAPI { success in
-                self.showActivityIndicator(show: !success)
-            }
-        }
-    }
-    
-    private func callAPI(callback: @escaping (Bool) -> Void) {
-        print("Need to call the API today")
-        CurrenciesService.shared.getCurrenciesRates { (success, currencies) in
-            if success, let currencies = currencies {
-                currencies.saveCurrenciesRates()
-                UserDefaults.standard.set(Date(), forKey: "lastAPICallDate")
-                callback(true)
-            } else {
-                self.presentAlert(title: "Error", message: "Erreur dans la récupération des taux de change")
-                callback(false)
-            }
-            self.refreshLastCallDate()
-        }
     }
     
     private func refreshLastCallDate() {
@@ -108,7 +82,6 @@ class CurrenciesViewController: UIViewController {
         } else {
             lastAPICallDateLabel.text = "Dernière actualisation : N/A"
         }
-        
     }
     
     private func presentAlert(title: String, message: String) {
@@ -137,7 +110,6 @@ class CurrenciesViewController: UIViewController {
             }
         }
     }
-    
     
     @IBAction func currency2ValueChanged(_ sender: UITextField) {
         convertCurrencies(sender: sender)

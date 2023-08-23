@@ -65,7 +65,7 @@ class TranslateViewController: UIViewController {
         if let text = sourceTextView.text {
             TranslateService.shared.expressionToTranslate = text
         } else {
-            self.presentAlert(title: "Erreur", message: "Erreur avec le texte à traduire")
+            self.presentAlert(title: "Erreur", message: "Erreur lors de la récupération du texte")
         }
         TranslateService.shared.getTranslation { (success, translation) in
             self.toggleActivityIndicator(shown: false)

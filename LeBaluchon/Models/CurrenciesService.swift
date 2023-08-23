@@ -17,7 +17,6 @@ class CurrenciesService {
     
     private let baseCurrency = "base=EUR"
     private let targetCurrencies = "symbols=USD,GBP,JPY,CAD" /* https://fr.wikipedia.org/wiki/ISO_4217#Liste_triée_par_nom_d’unité_monétaire */
-    //private let apikey = "apikey=xxxxxxxxxx"
     
     func getCurrenciesRates(callback: @escaping (Bool, CurrenciesResponse?) -> Void) {
         
@@ -49,6 +48,25 @@ class CurrenciesService {
             }
         }
         task?.resume()
+    }
+
+    func callAPI(callback: @escaping (Bool) -> Void) {
+        if let lastAPICallDate = UserDefaults.standard.object(forKey: "lastAPICallDate") as? Date {
+            if Calendar.current.isDateInToday(lastAPICallDate) {
+                self.refreshLastCallDate()
+                self.showActivityIndicator(show: false)
+                callback(true)
+            }
+        }
+        self.getCurrenciesRates { (success, currencies) in
+            if success, let currencies = currencies {
+                currencies.saveCurrenciesRates()
+                UserDefaults.standard.set(Date(), forKey: "lastAPICallDate")
+                callback(true)
+            } else {
+                callback(false)
+            }
+        }
     }
     
     private var apiKey: String {
