@@ -32,9 +32,9 @@ class WeatherViewController: UIViewController {
     }
     
     private func presentAlert(title: String, message: String) {
-          let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
-          alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-       present(alertVC, animated: true, completion: nil)
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alertVC, animated: true, completion: nil)
     }
     
     private func displayWeatherInfos(weatherResponse: WeatherResponse, tag: Int) {
@@ -59,13 +59,13 @@ class WeatherViewController: UIViewController {
         let citiesLatLon = WeatherService.shared.citiesLatLon
         if citiesLatLon.count == citiesView.count {
             for (index, element) in citiesLatLon.enumerated() {
-                WeatherService.shared.getWeather(cityLatLon: element, callback: { (success, weatherResponse) in
+                WeatherService.shared.getWeather(cityLatLon: element, callback: { (success, weatherResponse, errorMessage) in
                     if success, let weatherResponse = weatherResponse {
                         self.displayWeatherInfos(weatherResponse: weatherResponse, tag: index)
-                        self.activityIndicators[index].isHidden = true
                     } else {
-                        self.presentAlert(title: "Erreur", message: "Erreur lors de la récupération des données")
+                        self.presentAlert(title: "Erreur", message: errorMessage ?? "Erreur lors de la récupération des données")
                     }
+                    self.activityIndicators[index].isHidden = true
                 })
             }
         }

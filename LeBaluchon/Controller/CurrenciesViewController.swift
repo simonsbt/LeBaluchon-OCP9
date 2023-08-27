@@ -62,7 +62,7 @@ class CurrenciesViewController: UIViewController {
         
         CurrenciesService.shared.callAPI { success in
             if !success {
-                self.presentAlert(title: "Error", message: "Erreur dans la récupération des taux de change")
+                self.presentAlert(title: "Erreur", message: "Erreur dans la récupération des taux de change.")
             }
             self.refreshLastCallDate()   
             self.showActivityIndicator(show: false)
@@ -100,13 +100,13 @@ class CurrenciesViewController: UIViewController {
                 }
             } else { // Executed when the value entered cannot be converted to Double type
                 if text.count >= 1 {
-                    self.presentAlert(title: "Error", message: "Erreur lors de la conversion")
+                    self.presentAlert(title: "Erreur", message: "Erreur lors de la conversion.")
                 }
                 targetCurrencyField.text = ""
                 baseCurrencyField.text = ""
             }
         } else {
-            self.presentAlert(title: "Error", message: "Erreur lors de la lecture des données")
+            self.presentAlert(title: "Erreur", message: "Erreur lors de la lecture des données.")
         }
     }
     

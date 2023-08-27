@@ -24,9 +24,9 @@ class WeatherService {
     private let units = "units=metric"
     private let language = "lang=fr"
     
-    func getWeather(cityLatLon: String, callback: @escaping (Bool, WeatherResponse?) -> Void) {
+    func getWeather(cityLatLon: String, callback: @escaping (Bool, WeatherResponse?, String?) -> Void) {
         
-        let weatherUrl = URL(string: "https://api.openweathermap.org/data/2.5/weather?appid=\(apiKey)&\(cityLatLon)&\(units)&\(language)")!
+        let weatherUrl = URL(string: "https://api.openweathermap.org/data/2.5/weather?appid=\(apiKey)&\(cityLatLon)&\(units)&\(language)")!//
         
         let session = URLSession(configuration: .default)
 
@@ -35,27 +35,30 @@ class WeatherService {
 
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
-                    callback(false, nil)
-                    print("1")
+                    callback(false, nil, "Impossible de récupérer les données, merci de vérifier votre connexion internet.")
                     return
                 }
-
+                
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    print(response ?? "kdfoskfosd")
-                    callback(false, nil)
-                    print("2")
+                    // API Key error, Query parameters error
+                    
+                    /// Try to decode the error received
+                    guard let decodedErrorResponse = try? JSONDecoder().decode(WeatherError.self, from: data) else {
+                        callback(false, nil, "Erreur inattendue.")
+                        return
+                    }
+                    callback(false, nil, decodedErrorResponse.message)
                     return
                 }
 
                 guard let decodedResponse = try? JSONDecoder().decode(WeatherResponse.self, from: data) else {
-                    callback(false, nil)
-                    print("3")
+                    callback(false, nil, "Erreur lors de la lecture de la réponse.")
                     return
                 }
 
                 let weatherResponse: WeatherResponse = decodedResponse
 
-                callback(true, weatherResponse)
+                callback(true, weatherResponse, nil)
             }
         }
         task?.resume()

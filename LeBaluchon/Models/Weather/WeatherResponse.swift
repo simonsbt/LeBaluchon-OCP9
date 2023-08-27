@@ -61,3 +61,7 @@ struct Weather: Codable {
 struct Main: Codable {
     let temp: Double
 }
+
+struct WeatherError: Codable {
+    let message: String
+}

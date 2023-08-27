@@ -43,7 +43,6 @@ class TranslateViewController: UIViewController {
             default:
                 TranslateService.shared.targetLanguage = "en"
             }
-            // self.translate() // Automatically translates when the target language is changed.
         }
         
         /// Creates items corresponding to languages to add them in the menu.
@@ -56,39 +55,50 @@ class TranslateViewController: UIViewController {
     
     @IBAction func translateButtonTapped(_ sender: UIButton) {
         view.endEditing(true)
-        if sourceTextView.text.count >= 1 {
+        if let text = sourceTextView.text, sourceTextView.text.count >= 1 {
             showActivityIndicator(show: true)
-            translate()
+            TranslateService.shared.expressionToTranslate = text // Save the expression to translate.
+            detectLanguage()
+        } else {
+            self.presentAlert(title: "Erreur", message: "Erreur lors de la récupération du texte.")
+        }
+    }
+    
+    private func translate() {
+        TranslateService.shared.getTranslation { (success, translation, errorMessage) in
+            if success, let translation = translation {
+                self.targetTextView.text = translation // Display the translation.
+            } else {
+                if let errorMessage = errorMessage {
+                    self.presentAlert(title: "Erreur", message: errorMessage)
+                } else {
+                    self.presentAlert(title: "Erreur", message: "Erreur lors de la traduction.")
+                }
+            }
         }
     }
     
     /// Executed when the translateButton is tapped.
-    private func translate() {
-        if let text = sourceTextView.text {
-            TranslateService.shared.expressionToTranslate = text // Save the expression to translate.
-        } else {
-            self.presentAlert(title: "Erreur", message: "Erreur lors de la récupération du texte")
-        }
-        TranslateService.shared.detectLanguage { (success, detectedLanguage) in
+    private func detectLanguage() {
+        TranslateService.shared.detectLanguage { (success, detectedLanguage, errorMessage) in
             if success, let detectedLanguage = detectedLanguage {
                 if let language = Locale.current.localizedString(forLanguageCode: detectedLanguage) {
                     self.sourceLanguageLabel.text = "Détecter la langue : \(language)"
                 }
                 /// Translate an expression from a language to the same language doesn't work in this API
                 if detectedLanguage == TranslateService.shared.targetLanguage {
-                    self.targetTextView.text = TranslateService.shared.expressionToTranslate
+                    self.targetTextView.text = TranslateService.shared.expressionToTranslate // Translate API can't traduce to a target language that is the same as the source language
                 } else {
                     TranslateService.shared.sourceLanguage = detectedLanguage
-                    TranslateService.shared.getTranslation { (success, translation) in
-                        if success, let translation = translation {
-                            self.targetTextView.text = translation // Display the translation.
-                        } else {
-                            self.presentAlert(title: "Erreur", message: "Erreur lors de la traduction")
-                        }
-                    }
+                    self.translate()
                 }
             } else {
-                self.presentAlert(title: "Erreur", message: "Erreur lors de la détection de la langue")
+                if let errorMessage = errorMessage {
+                    self.presentAlert(title: "Erreur", message: errorMessage)
+                } else {
+                    self.presentAlert(title: "Erreur", message: "Erreur lors de la traduction.")
+                }
+                
             }
             self.showActivityIndicator(show: false)
         }

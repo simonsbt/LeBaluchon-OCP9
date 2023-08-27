@@ -19,13 +19,13 @@ class TranslateService {
     
     let languages = ["Français", "Spanish", "Japanese", "English"]
     
-    func detectLanguage(callback: @escaping (Bool, String?) -> Void) {
+    func detectLanguage(callback: @escaping (Bool, String?, String?) -> Void) {
         
         let detectUrl = URL(string: "https://translation.googleapis.com/language/translate/v2/detect/?")!
         var request = URLRequest(url: detectUrl)
         request.httpMethod = "POST"
         
-        let body = "key=\(apiKey)&q=\(expressionToTranslate)"
+        let body = "key=\(apiKey)&q=\(expressionToTranslate)"//
         request.httpBody = body.data(using: .utf8)
         
         let session = URLSession(configuration: .default)
@@ -35,29 +35,38 @@ class TranslateService {
             
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
-                    callback(false, nil)
+                    // Network issue ?
+                    callback(false, nil, "Traduction impossible, merci de vérifier votre connexion internet.")
                     return
                 }
                 
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    callback(false, nil)
+                    // API Key error, Query parameters error
+                    
+                    /// Try to decode the error received
+                    guard let decodedErrorResponse = try? JSONDecoder().decode(TranslateError.self, from: data) else {
+                        callback(false, nil, "Erreur inattendue.")
+                        return
+                    }
+                    callback(false, nil, decodedErrorResponse.error.message)
                     return
                 }
                 
                 guard let decodedResponse = try? JSONDecoder().decode(DetectLanguageResponse.self, from: data) else {
-                    callback(false, nil)
+                    // Unable to decode
+                    callback(false, nil, "Erreur lors de la lecture de la réponse.")
                     return
                 }
                 
                 let detectResponse: DetectLanguageResponse = decodedResponse
                 let detectedLanguage = detectResponse.getDetectedLanguage()
-                callback(true, detectedLanguage)
+                callback(true, detectedLanguage, nil)
             }
         }
         task?.resume()
     }
     
-    func getTranslation(callback: @escaping (Bool, String?) -> Void) {
+    func getTranslation(callback: @escaping (Bool, String?, String?) -> Void) {
 
         let translateUrl = URL(string: "https://translation.googleapis.com/language/translate/v2?")!
         var request = URLRequest(url: translateUrl)
@@ -73,23 +82,30 @@ class TranslateService {
             
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
-                    callback(false, nil)
+                    callback(false, nil, "Traduction impossible, merci de vérifier votre connexion internet.")
                     return
                 }
                 
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    callback(false, nil)
+                    // API Key error, Query parameters error
+                    
+                    /// Try to decode the error received
+                    guard let decodedErrorResponse = try? JSONDecoder().decode(TranslateError.self, from: data) else {
+                        callback(false, nil, "Erreur inattendue.")
+                        return
+                    }
+                    callback(false, nil, decodedErrorResponse.error.message)
                     return
                 }
                 
                 guard let decodedResponse = try? JSONDecoder().decode(TranslateResponse.self, from: data) else {
-                    callback(false, nil)
+                    callback(false, nil, "Erreur lors de la lecture de la réponse.")
                     return
                 }
                 
                 let translateResponse: TranslateResponse = decodedResponse
                 let translation = translateResponse.getTranslation()
-                callback(true, translation)
+                callback(true, translation, nil)
             }
         }
         
