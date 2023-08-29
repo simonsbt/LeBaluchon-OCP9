@@ -24,7 +24,7 @@ class TranslateViewController: UIViewController {
         super.viewDidLoad()
 
         /// TapGestureRecognizer to dismiss the keyboard when tapping outside UITextView.
-        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        let tap = UITapGestureRecognizer(target: view, action: #selector(self.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
         self.showActivityIndicator(show: false)
@@ -69,11 +69,7 @@ class TranslateViewController: UIViewController {
             if success, let translation = translation {
                 self.targetTextView.text = translation // Display the translation.
             } else {
-                if let errorMessage = errorMessage {
-                    self.presentAlert(title: "Erreur", message: errorMessage)
-                } else {
-                    self.presentAlert(title: "Erreur", message: "Erreur lors de la traduction.")
-                }
+                self.presentAlert(title: "Erreur", message: errorMessage ?? "Erreur lors de la traduction.")
             }
         }
     }
@@ -93,12 +89,7 @@ class TranslateViewController: UIViewController {
                     self.translate()
                 }
             } else {
-                if let errorMessage = errorMessage {
-                    self.presentAlert(title: "Erreur", message: errorMessage)
-                } else {
-                    self.presentAlert(title: "Erreur", message: "Erreur lors de la traduction.")
-                }
-                
+                self.presentAlert(title: "Erreur", message: errorMessage ?? "Erreur lors de la traduction.")
             }
             self.showActivityIndicator(show: false)
         }
@@ -115,5 +106,9 @@ class TranslateViewController: UIViewController {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
+    }
+
+    @objc private func dismissKeyboard() {
+        sourceTextView.resignFirstResponder()
     }
 }

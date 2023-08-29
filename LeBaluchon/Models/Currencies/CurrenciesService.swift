@@ -73,6 +73,18 @@ class CurrenciesService {
         }
     }
     
+    func convertValue(value: Double, senderTag: Int) -> String {
+        if senderTag == 1 {
+            let convertedValue = value * rate
+            let roundedValue = Double(round(100 * convertedValue) / 100)
+            return String(roundedValue)
+        } else {
+            let convertedValue = value / rate
+            let roundedValue = Double(round(100 * convertedValue) / 100)
+            return String(roundedValue)
+        }
+    }
+    
     /// Computed var returning the apiKey from config.plist.
     /// Used to secure apiKey from Git commits.
     private var apiKey: String {
