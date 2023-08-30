@@ -24,7 +24,7 @@ class TranslateViewController: UIViewController {
         super.viewDidLoad()
 
         /// TapGestureRecognizer to dismiss the keyboard when tapping outside UITextView.
-        let tap = UITapGestureRecognizer(target: view, action: #selector(self.dismissKeyboard))
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
         
         self.showActivityIndicator(show: false)
@@ -106,9 +106,5 @@ class TranslateViewController: UIViewController {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
-    }
-
-    @objc private func dismissKeyboard() {
-        sourceTextView.resignFirstResponder()
     }
 }

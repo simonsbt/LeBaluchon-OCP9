@@ -26,7 +26,7 @@ class CurrenciesViewController: UIViewController {
         super.viewDidLoad()
         
         /// TapGestureRecognizer to dismiss the keyboard when tapping outside UITextField.
-        let tap = UITapGestureRecognizer(target: view, action: #selector(self.dismissKeyboard))
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
         
         self.showActivityIndicator(show: true)
@@ -88,14 +88,12 @@ class CurrenciesViewController: UIViewController {
     private func convertCurrencies(sender: UITextField) {
         if let text = sender.text?.replacingOccurrences(of: ",", with: ".") {
             if let value = Double(text) {
-                // Call model's func with value and tag, returning roundedValue as Double
-                let convertedStringValue = CurrenciesService.shared.convertValue()
-                sender.text = convertedStringValue
-                /*if sender.tag == 1 {
-                    targetCurrencyField.text = String(convertedStringValue)
+                let convertedStringValue = CurrenciesService.shared.convertValue(value: value, senderTag: sender.tag)
+                if sender.tag == 1 {
+                    targetCurrencyField.text = convertedStringValue
                 } else {
-                    baseCurrencyField.text = String(roundedValue)
-                }*/
+                    baseCurrencyField.text = convertedStringValue
+                }
             } else { // Executed when the value entered cannot be converted to Double type
                 if text.count >= 1 {
                     self.presentAlert(title: "Erreur", message: "Erreur lors de la conversion.")
@@ -130,11 +128,5 @@ class CurrenciesViewController: UIViewController {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
-    }
-
-    /// Used to dismiss the keyboard
-    @objc private func dismissKeyboard() {
-        baseCurrencyField.resignFirstResponder()
-        targetCurrencyField.resignFirstResponder()
     }
 }
