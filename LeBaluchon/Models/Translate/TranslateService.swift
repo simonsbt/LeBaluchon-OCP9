@@ -19,6 +19,9 @@ class TranslateService {
     
     let languages = ["Français", "Spanish", "Japanese", "English"]
     
+    private var translateSession = URLSession(configuration: .default)
+    private var detectSession = URLSession(configuration: .default)
+    
     func detectLanguage(callback: @escaping (Bool, String?, String?) -> Void) {
         
         let detectUrl = URL(string: "https://translation.googleapis.com/language/translate/v2/detect/?")!
@@ -28,10 +31,8 @@ class TranslateService {
         let body = "key=\(apiKey)&q=\(expressionToTranslate)"//
         request.httpBody = body.data(using: .utf8)
         
-        let session = URLSession(configuration: .default)
-        
         task?.cancel()
-        task = session.dataTask(with: request) { (data, response, error) in
+        task = detectSession.dataTask(with: request) { (data, response, error) in
             
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
@@ -75,10 +76,8 @@ class TranslateService {
         let body = "key=\(apiKey)&q=\(expressionToTranslate)&source=\(sourceLanguage)&target=\(targetLanguage)&format=text"
         request.httpBody = body.data(using: .utf8)
         
-        let session = URLSession(configuration: .default)
-        
         task?.cancel()
-        task = session.dataTask(with: request) { (data, response, error) in
+        task = translateSession.dataTask(with: request) { (data, response, error) in
             
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {

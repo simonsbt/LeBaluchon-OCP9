@@ -89,7 +89,6 @@ class CurrenciesService {
     /// Used to secure apiKey from Git commits.
     private var apiKey: String {
         get {
-
             guard let filePath = Bundle.main.path(forResource: "config", ofType: "plist") else {
                 fatalError("Couldn't find file 'config.plist'.")
             }

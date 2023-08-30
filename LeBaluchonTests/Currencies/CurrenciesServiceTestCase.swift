@@ -12,7 +12,7 @@ final class CurrenciesServiceTestCase: XCTestCase {
     
     func testGetCurrenciesRatesShouldPostFailedCallbackIfError() {
         // Given
-        let currenciesService = CurrenciesService(session: URLSessionFake(data: nil, response: nil, error: FakeCurrenciesResponseData.error))
+        let currenciesService = CurrenciesService(session: URLSessionFake(data: nil, response: nil, error: CurrenciesFakeResponseData.error))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
@@ -44,7 +44,7 @@ final class CurrenciesServiceTestCase: XCTestCase {
     
     func testGetCurrenciesRatesShouldPostFailedCallbackIfIncorrectResponse() {
         // Given
-        let currenciesService = CurrenciesService(session: URLSessionFake(data: FakeCurrenciesResponseData.correctData, response: FakeCurrenciesResponseData.responseKO, error: nil))
+        let currenciesService = CurrenciesService(session: URLSessionFake(data: CurrenciesFakeResponseData.correctData, response: CurrenciesFakeResponseData.responseKO, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
@@ -60,7 +60,7 @@ final class CurrenciesServiceTestCase: XCTestCase {
     
     func testGetCurrenciesRatesShouldPostFailedCallbackIfIncorrectData() {
         // Given
-        let currenciesService = CurrenciesService(session: URLSessionFake(data: FakeCurrenciesResponseData.incorrectData, response: FakeCurrenciesResponseData.responseKO, error: nil))
+        let currenciesService = CurrenciesService(session: URLSessionFake(data: CurrenciesFakeResponseData.incorrectData, response: CurrenciesFakeResponseData.responseOK, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
@@ -74,6 +74,82 @@ final class CurrenciesServiceTestCase: XCTestCase {
         wait(for: [expectation], timeout: 0.01)
     }
 
+    
+    func testGetCurrenciesRatesShouldPostSuccessCallbackIfNoErrorAndCorrectData() {
+        // Given
+        let currenciesService = CurrenciesService(session: URLSessionFake(data: CurrenciesFakeResponseData.correctData, response: CurrenciesFakeResponseData.responseOK, error: nil))
+        
+        //When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        currenciesService.getCurrenciesRates { success in
+            
+            // Then
+            XCTAssertTrue(success)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 0.01)
+    }
+    
+    func testConvertCurrenciesShouldReturnMulipliedStringValue() {
+        // Given
+        let currenciesService = CurrenciesService.shared
+        currenciesService.rate = 1.08
+        let rate = currenciesService.rate
+        let value = 100.0
+        let roundedValue = Double(round(100 * (value * rate)) / 100)
+        
+        // When
+        let convertedValue = currenciesService.convertValue(value: value, senderTag: 1)
+        
+        // Then
+        XCTAssertEqual(convertedValue, String(roundedValue))
+    }
+    
+    func testConvertCurrenciesShouldReturnDividedStringValue() {
+        // Given
+        let currenciesService = CurrenciesService.shared
+        currenciesService.rate = 1.08
+        let rate = currenciesService.rate
+        let value = 100.0
+        let roundedValue = Double(round(100 * (value / rate)) / 100)
+        
+        // When
+        let convertedValue = currenciesService.convertValue(value: value, senderTag: 2)
+        
+        // Then
+        XCTAssertEqual(convertedValue, String(roundedValue))
+    }
+    
+    func testConvertCurrenciesShouldNotReturnMulipliedStringValue() {
+        // Given
+        let currenciesService = CurrenciesService.shared
+        currenciesService.rate = 1.08
+        let rate = currenciesService.rate
+        let value = 100.0
+        let roundedValue = Double(round(100 * (value * rate)) / 100)
+        
+        // When
+        let convertedValue = currenciesService.convertValue(value: value, senderTag: 2)
+        
+        // Then
+        XCTAssertNotEqual(convertedValue, String(roundedValue))
+    }
+    
+    func testConvertCurrenciesShouldNotReturnDividedStringValue() {
+        // Given
+        let currenciesService = CurrenciesService.shared
+        currenciesService.rate = 1.08
+        let rate = currenciesService.rate
+        let value = 100.0
+        let roundedValue = Double(round(100 * (value / rate)) / 100)
+        
+        // When
+        let convertedValue = currenciesService.convertValue(value: value, senderTag: 1)
+        
+        // Then
+        XCTAssertNotEqual(convertedValue, String(roundedValue))
+    }
     
 }
 

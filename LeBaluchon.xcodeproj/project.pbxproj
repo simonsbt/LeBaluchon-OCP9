@@ -14,7 +14,7 @@
 		085B89572A8E9457002CC9B3 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085B89562A8E9457002CC9B3 /* WeatherService.swift */; };
 		085B89592A8E9469002CC9B3 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085B89582A8E9469002CC9B3 /* WeatherResponse.swift */; };
 		08B067962A9F3158002C16D0 /* CurrenciesRates.json in Resources */ = {isa = PBXBuildFile; fileRef = 08B067952A9F3158002C16D0 /* CurrenciesRates.json */; };
-		08B067982A9F31E1002C16D0 /* FakeCurrenciesResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B067972A9F31E1002C16D0 /* FakeCurrenciesResponseData.swift */; };
+		08B067982A9F31E1002C16D0 /* CurrenciesFakeResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B067972A9F31E1002C16D0 /* CurrenciesFakeResponseData.swift */; };
 		08B0679A2A9F3773002C16D0 /* URLSessionFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B067992A9F3773002C16D0 /* URLSessionFake.swift */; };
 		08B0679C2A9F3783002C16D0 /* URLSessionDataTaskFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B0679B2A9F3783002C16D0 /* URLSessionDataTaskFake.swift */; };
 		08B0679E2A9F3BF8002C16D0 /* CurrenciesServiceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B0679D2A9F3BF8002C16D0 /* CurrenciesServiceTestCase.swift */; };
@@ -58,10 +58,11 @@
 		085B89562A8E9457002CC9B3 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		085B89582A8E9469002CC9B3 /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		08B067952A9F3158002C16D0 /* CurrenciesRates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CurrenciesRates.json; sourceTree = "<group>"; };
-		08B067972A9F31E1002C16D0 /* FakeCurrenciesResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCurrenciesResponseData.swift; sourceTree = "<group>"; };
+		08B067972A9F31E1002C16D0 /* CurrenciesFakeResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesFakeResponseData.swift; sourceTree = "<group>"; };
 		08B067992A9F3773002C16D0 /* URLSessionFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionFake.swift; sourceTree = "<group>"; };
 		08B0679B2A9F3783002C16D0 /* URLSessionDataTaskFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionDataTaskFake.swift; sourceTree = "<group>"; };
 		08B0679D2A9F3BF8002C16D0 /* CurrenciesServiceTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesServiceTestCase.swift; sourceTree = "<group>"; };
+		08B067A02A9F43FB002C16D0 /* LeBaluchon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = LeBaluchon.xctestplan; sourceTree = "<group>"; };
 		08C8CBB12A6EDD4900258B5F /* LeBaluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeBaluchon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C8CBB42A6EDD4900258B5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08C8CBB62A6EDD4900258B5F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,7 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				08B067952A9F3158002C16D0 /* CurrenciesRates.json */,
-				08B067972A9F31E1002C16D0 /* FakeCurrenciesResponseData.swift */,
+				08B067972A9F31E1002C16D0 /* CurrenciesFakeResponseData.swift */,
 				08B0679D2A9F3BF8002C16D0 /* CurrenciesServiceTestCase.swift */,
 			);
 			path = Currencies;
@@ -119,6 +120,7 @@
 		08C8CBA82A6EDD4800258B5F = {
 			isa = PBXGroup;
 			children = (
+				08B067A02A9F43FB002C16D0 /* LeBaluchon.xctestplan */,
 				08DC36232A969B7E003C8F1D /* config.plist */,
 				08C8CBB32A6EDD4900258B5F /* LeBaluchon */,
 				08C8CBCA2A6EDD4A00258B5F /* LeBaluchonTests */,
@@ -388,7 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08B067982A9F31E1002C16D0 /* FakeCurrenciesResponseData.swift in Sources */,
+				08B067982A9F31E1002C16D0 /* CurrenciesFakeResponseData.swift in Sources */,
 				08B0679A2A9F3773002C16D0 /* URLSessionFake.swift in Sources */,
 				08B0679E2A9F3BF8002C16D0 /* CurrenciesServiceTestCase.swift in Sources */,
 				08B0679C2A9F3783002C16D0 /* URLSessionDataTaskFake.swift in Sources */,

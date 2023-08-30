@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FakeCurrenciesResponseData {
+class CurrenciesFakeResponseData {
     
     static let responseOK = HTTPURLResponse(
         url: URL(string: "https://openclassrooms.com")!,
@@ -29,7 +29,7 @@ class FakeCurrenciesResponseData {
     static let incorrectData = "erreur".data(using: .utf8)!
     
     static var correctData: Data? {
-        let bundle = Bundle(for: FakeCurrenciesResponseData.self)
+        let bundle = Bundle(for: CurrenciesFakeResponseData.self)
         let url = bundle.url(forResource: "CurrenciesRates", withExtension: "json")!
         return try! Data(contentsOf: url)
     }
