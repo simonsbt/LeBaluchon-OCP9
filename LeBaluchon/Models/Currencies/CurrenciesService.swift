@@ -19,13 +19,13 @@ class CurrenciesService {
     private let baseCurrency = "base=EUR"
     private let targetCurrencies = "symbols=USD,GBP,JPY,CAD" /* https://fr.wikipedia.org/wiki/ISO_4217#Liste_triée_par_nom_d’unité_monétaire */
     
+    private var session = URLSession(configuration: .default)
+    
     /// Fetch the currencies rates.
     /// - Parameter callback: escape the function with a bool representing the success.
     func getCurrenciesRates(callback: @escaping (Bool) -> Void) {
         
         let currenciesUrl = URL(string: "https://api.apilayer.com/fixer/latest?apikey=\(apiKey)&\(baseCurrency)&\(targetCurrencies)")!
-        
-        let session = URLSession(configuration: .default)
         
         task?.cancel()
         task = session.dataTask(with: currenciesUrl) { (data, response, error) in
@@ -100,6 +100,9 @@ class CurrenciesService {
             }
             return value
         }
+    }
+    init(session: URLSession) {
+        self.session = session
     }
 
     private init() {}
