@@ -23,7 +23,6 @@
 		08C8CBBC2A6EDD4900258B5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08C8CBBA2A6EDD4900258B5F /* Main.storyboard */; };
 		08C8CBBE2A6EDD4A00258B5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08C8CBBD2A6EDD4A00258B5F /* Assets.xcassets */; };
 		08C8CBC12A6EDD4A00258B5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08C8CBBF2A6EDD4A00258B5F /* LaunchScreen.storyboard */; };
-		08C8CBCC2A6EDD4A00258B5F /* LeBaluchonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C8CBCB2A6EDD4A00258B5F /* LeBaluchonTests.swift */; };
 		08C8CBD62A6EDD4A00258B5F /* LeBaluchonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C8CBD52A6EDD4A00258B5F /* LeBaluchonUITests.swift */; };
 		08C8CBD82A6EDD4A00258B5F /* LeBaluchonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C8CBD72A6EDD4A00258B5F /* LeBaluchonUITestsLaunchTests.swift */; };
 		08C8CBE82A6EE0EC00258B5F /* CurrenciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C8CBE72A6EE0EC00258B5F /* CurrenciesViewController.swift */; };
@@ -71,7 +70,6 @@
 		08C8CBC02A6EDD4A00258B5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08C8CBC22A6EDD4A00258B5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		08C8CBC72A6EDD4A00258B5F /* LeBaluchonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeBaluchonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		08C8CBCB2A6EDD4A00258B5F /* LeBaluchonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeBaluchonTests.swift; sourceTree = "<group>"; };
 		08C8CBD12A6EDD4A00258B5F /* LeBaluchonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeBaluchonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C8CBD52A6EDD4A00258B5F /* LeBaluchonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeBaluchonUITests.swift; sourceTree = "<group>"; };
 		08C8CBD72A6EDD4A00258B5F /* LeBaluchonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeBaluchonUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 		08C8CBCA2A6EDD4A00258B5F /* LeBaluchonTests */ = {
 			isa = PBXGroup;
 			children = (
-				08C8CBCB2A6EDD4A00258B5F /* LeBaluchonTests.swift */,
 				08B067992A9F3773002C16D0 /* URLSessionFake.swift */,
 				08B0679B2A9F3783002C16D0 /* URLSessionDataTaskFake.swift */,
 				08B0679F2A9F3EE1002C16D0 /* Currencies */,
@@ -394,7 +391,6 @@
 				08B0679A2A9F3773002C16D0 /* URLSessionFake.swift in Sources */,
 				08B0679E2A9F3BF8002C16D0 /* CurrenciesServiceTestCase.swift in Sources */,
 				08B0679C2A9F3783002C16D0 /* URLSessionDataTaskFake.swift in Sources */,
-				08C8CBCC2A6EDD4A00258B5F /* LeBaluchonTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
