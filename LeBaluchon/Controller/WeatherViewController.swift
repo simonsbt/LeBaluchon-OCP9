@@ -18,6 +18,7 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupLabels()
         self.loadData()
         
         self.navigationController?.isToolbarHidden = false
@@ -39,6 +40,7 @@ class WeatherViewController: UIViewController {
     
     private func displayWeatherInfos(weatherResponse: WeatherResponse, tag: Int) {
         citiesView[tag].backgroundColor = weatherResponse.getViewColor()
+        
         let temp = weatherResponse.main.temp
         citiesTempLabels[tag].text = String(format: "%.1f", temp) + "°C"
         
@@ -47,9 +49,29 @@ class WeatherViewController: UIViewController {
         
         if let cityName = weatherResponse.name {
             citiesNameLabels[tag].text = cityName
+        } else {
+            citiesNameLabels[tag].text = "N/A"
         }
+        
         citiesLocalHourLabels[tag].text = weatherResponse.getLocalTime()
         
+    }
+    
+    private func setupLabels() {
+        for label in citiesNameLabels {
+            label.textColor = UIColor.white
+            label.adjustsFontSizeToFitWidth = true
+        }
+        for label in citiesTempLabels {
+            label.textColor = UIColor.white
+        }
+        for label in citiesLocalHourLabels {
+            label.textColor = UIColor.white
+        }
+        for label in citiesWeatherDescriptionLabels {
+            label.textColor = UIColor.white
+            label.adjustsFontSizeToFitWidth = true
+        }
     }
     
     @objc private func loadData() {
