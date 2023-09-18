@@ -14,6 +14,7 @@ final class TranslationServiceTestCase: XCTestCase {
         // Given
         let translateService = TranslateService(detectSession: URLSessionFake(data: DetectFakeResponseData.correctData, response: DetectFakeResponseData.responseOK, error: nil), translateSession: URLSessionFake(data: nil, response: nil, error: TranslateFakeResponseData.error))
         
+        
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
         translateService.getTranslation(callback: { success, _, _ in

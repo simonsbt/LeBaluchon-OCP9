@@ -22,14 +22,13 @@ class WeatherService {
     private let units = "units=metric"
     private let language = "lang=fr"
     
+    private var weatherSession = URLSession(configuration: .default)
+    
     func getWeather(cityLatLon: String, callback: @escaping (Bool, WeatherResponse?, String?) -> Void) {
         
         let weatherUrl = URL(string: "https://api.openweathermap.org/data/2.5/weather?appid=\(apiKey)&\(cityLatLon)&\(units)&\(language)")!//
-        
-        let session = URLSession(configuration: .default)
 
-        //task?.cancel()
-        task = session.dataTask(with: weatherUrl) { (data, response, error) in
+        task = weatherSession.dataTask(with: weatherUrl) { (data, response, error) in
 
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
@@ -77,5 +76,9 @@ class WeatherService {
       }
     }
 
+    init(weatherSession: URLSession) {
+        self.weatherSession = weatherSession
+    }
+    
     private init() {}
 }

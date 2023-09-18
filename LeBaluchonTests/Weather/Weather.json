@@ -1,0 +1,52 @@
+{
+    "coord": {
+        "lon": -73.93,
+        "lat": 40.73
+    },
+    "weather": [
+        {
+            "id": 500,
+            "main": "Rain",
+            "description": "légère pluie",
+            "icon": "10d"
+        },
+        {
+            "id": 701,
+            "main": "Mist",
+            "description": "brume",
+            "icon": "50d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 18.34,
+        "feels_like": 18.58,
+        "temp_min": 17.26,
+        "temp_max": 19.37,
+        "pressure": 1009,
+        "humidity": 90
+    },
+    "visibility": 2816,
+    "wind": {
+        "speed": 4.12,
+        "deg": 80
+    },
+    "rain": {
+        "1h": 0.18
+    },
+    "clouds": {
+        "all": 100
+    },
+    "dt": 1695042486,
+    "sys": {
+        "type": 2,
+        "id": 2002197,
+        "country": "US",
+        "sunrise": 1695033544,
+        "sunset": 1695078060
+    },
+    "timezone": -14400,
+    "id": 5125125,
+    "name": "Long Island City",
+    "cod": 200
+}
