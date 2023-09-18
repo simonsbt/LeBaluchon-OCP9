@@ -100,6 +100,7 @@ class CurrenciesService {
             return value
         }
     }
+    
     init(session: URLSession) {
         self.session = session
     }

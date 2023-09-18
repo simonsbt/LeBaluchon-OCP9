@@ -18,6 +18,9 @@
 		08B0679A2A9F3773002C16D0 /* URLSessionFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B067992A9F3773002C16D0 /* URLSessionFake.swift */; };
 		08B0679C2A9F3783002C16D0 /* URLSessionDataTaskFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B0679B2A9F3783002C16D0 /* URLSessionDataTaskFake.swift */; };
 		08B0679E2A9F3BF8002C16D0 /* CurrenciesServiceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B0679D2A9F3BF8002C16D0 /* CurrenciesServiceTestCase.swift */; };
+		08B067A22AA75D91002C16D0 /* Translation.json in Resources */ = {isa = PBXBuildFile; fileRef = 08B067A12AA75D91002C16D0 /* Translation.json */; };
+		08B067A52AA75E24002C16D0 /* DetectLanguage.json in Resources */ = {isa = PBXBuildFile; fileRef = 08B067A42AA75E24002C16D0 /* DetectLanguage.json */; };
+		08B067A72AA75E58002C16D0 /* TranslateFakeResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B067A62AA75E58002C16D0 /* TranslateFakeResponseData.swift */; };
 		08C8CBB52A6EDD4900258B5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C8CBB42A6EDD4900258B5F /* AppDelegate.swift */; };
 		08C8CBB72A6EDD4900258B5F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C8CBB62A6EDD4900258B5F /* SceneDelegate.swift */; };
 		08C8CBBC2A6EDD4900258B5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08C8CBBA2A6EDD4900258B5F /* Main.storyboard */; };
@@ -28,6 +31,9 @@
 		08C8CBE82A6EE0EC00258B5F /* CurrenciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C8CBE72A6EE0EC00258B5F /* CurrenciesViewController.swift */; };
 		08C8CBEA2A6EEFEC00258B5F /* CurrenciesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C8CBE92A6EEFEC00258B5F /* CurrenciesResponse.swift */; };
 		08C8CBEC2A6EF18F00258B5F /* CurrenciesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C8CBEB2A6EF18F00258B5F /* CurrenciesService.swift */; };
+		08D0DCB32AB8746600AD0FA8 /* DetectFakeResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0DCB22AB8746600AD0FA8 /* DetectFakeResponseData.swift */; };
+		08D0DCB52AB874C700AD0FA8 /* TranslationServiceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0DCB42AB874C700AD0FA8 /* TranslationServiceTestCase.swift */; };
+		08D0DCB72AB87CD900AD0FA8 /* DetectionServiceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0DCB62AB87CD900AD0FA8 /* DetectionServiceTestCase.swift */; };
 		08DC36242A969B7E003C8F1D /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08DC36232A969B7E003C8F1D /* config.plist */; };
 		08DC36262A96AE63003C8F1D /* DetectLanguageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DC36252A96AE63003C8F1D /* DetectLanguageResponse.swift */; };
 /* End PBXBuildFile section */
@@ -62,6 +68,9 @@
 		08B0679B2A9F3783002C16D0 /* URLSessionDataTaskFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionDataTaskFake.swift; sourceTree = "<group>"; };
 		08B0679D2A9F3BF8002C16D0 /* CurrenciesServiceTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesServiceTestCase.swift; sourceTree = "<group>"; };
 		08B067A02A9F43FB002C16D0 /* LeBaluchon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = LeBaluchon.xctestplan; sourceTree = "<group>"; };
+		08B067A12AA75D91002C16D0 /* Translation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Translation.json; sourceTree = "<group>"; };
+		08B067A42AA75E24002C16D0 /* DetectLanguage.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DetectLanguage.json; sourceTree = "<group>"; };
+		08B067A62AA75E58002C16D0 /* TranslateFakeResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateFakeResponseData.swift; sourceTree = "<group>"; };
 		08C8CBB12A6EDD4900258B5F /* LeBaluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeBaluchon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C8CBB42A6EDD4900258B5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08C8CBB62A6EDD4900258B5F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +85,9 @@
 		08C8CBE72A6EE0EC00258B5F /* CurrenciesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesViewController.swift; sourceTree = "<group>"; };
 		08C8CBE92A6EEFEC00258B5F /* CurrenciesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesResponse.swift; sourceTree = "<group>"; };
 		08C8CBEB2A6EF18F00258B5F /* CurrenciesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesService.swift; sourceTree = "<group>"; };
+		08D0DCB22AB8746600AD0FA8 /* DetectFakeResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFakeResponseData.swift; sourceTree = "<group>"; };
+		08D0DCB42AB874C700AD0FA8 /* TranslationServiceTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationServiceTestCase.swift; sourceTree = "<group>"; };
+		08D0DCB62AB87CD900AD0FA8 /* DetectionServiceTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionServiceTestCase.swift; sourceTree = "<group>"; };
 		08DC36232A969B7E003C8F1D /* config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
 		08DC36252A96AE63003C8F1D /* DetectLanguageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectLanguageResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,6 +125,19 @@
 				08B0679D2A9F3BF8002C16D0 /* CurrenciesServiceTestCase.swift */,
 			);
 			path = Currencies;
+			sourceTree = "<group>";
+		};
+		08B067A32AA75E06002C16D0 /* Translation */ = {
+			isa = PBXGroup;
+			children = (
+				08B067A12AA75D91002C16D0 /* Translation.json */,
+				08B067A42AA75E24002C16D0 /* DetectLanguage.json */,
+				08B067A62AA75E58002C16D0 /* TranslateFakeResponseData.swift */,
+				08D0DCB22AB8746600AD0FA8 /* DetectFakeResponseData.swift */,
+				08D0DCB42AB874C700AD0FA8 /* TranslationServiceTestCase.swift */,
+				08D0DCB62AB87CD900AD0FA8 /* DetectionServiceTestCase.swift */,
+			);
+			path = Translation;
 			sourceTree = "<group>";
 		};
 		08C8CBA82A6EDD4800258B5F = {
@@ -155,6 +180,7 @@
 				08B067992A9F3773002C16D0 /* URLSessionFake.swift */,
 				08B0679B2A9F3783002C16D0 /* URLSessionDataTaskFake.swift */,
 				08B0679F2A9F3EE1002C16D0 /* Currencies */,
+				08B067A32AA75E06002C16D0 /* Translation */,
 			);
 			path = LeBaluchonTests;
 			sourceTree = "<group>";
@@ -350,7 +376,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08B067A52AA75E24002C16D0 /* DetectLanguage.json in Resources */,
 				08B067962A9F3158002C16D0 /* CurrenciesRates.json in Resources */,
+				08B067A22AA75D91002C16D0 /* Translation.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,7 +416,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				08B067982A9F31E1002C16D0 /* CurrenciesFakeResponseData.swift in Sources */,
+				08D0DCB52AB874C700AD0FA8 /* TranslationServiceTestCase.swift in Sources */,
+				08B067A72AA75E58002C16D0 /* TranslateFakeResponseData.swift in Sources */,
+				08D0DCB32AB8746600AD0FA8 /* DetectFakeResponseData.swift in Sources */,
 				08B0679A2A9F3773002C16D0 /* URLSessionFake.swift in Sources */,
+				08D0DCB72AB87CD900AD0FA8 /* DetectionServiceTestCase.swift in Sources */,
 				08B0679E2A9F3BF8002C16D0 /* CurrenciesServiceTestCase.swift in Sources */,
 				08B0679C2A9F3783002C16D0 /* URLSessionDataTaskFake.swift in Sources */,
 			);

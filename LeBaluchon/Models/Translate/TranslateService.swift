@@ -126,6 +126,11 @@ class TranslateService {
       }
     }
     
+    init(detectSession: URLSession, translateSession: URLSession) {
+        self.detectSession = detectSession
+        self.translateSession = translateSession
+    }
+    
     private init() {}
     
 }

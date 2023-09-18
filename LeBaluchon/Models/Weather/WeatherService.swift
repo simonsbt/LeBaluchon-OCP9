@@ -13,8 +13,6 @@ class WeatherService {
 
     static var shared = WeatherService()
     
-    let currencies = ["USD", "GBP", "JPY", "CAD"]
-    
     let citiesLatLon = ["lat=50.43333&lon=2.8333", "lat=40.7127&lon=-74.0059", "lat=35.0210700&lon=135.7538500"]
 
     private let latLonLens = "lat=50.43333&lon=2.8333"
