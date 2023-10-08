@@ -105,8 +105,6 @@ class CurrenciesViewController: UIViewController {
             self.presentAlert(title: "Erreur", message: "Erreur lors de la lecture des données.")
         }
     }
-    
-    // TODO: Rename currency2ValueChanged to targetCurrencyValueChanged
 
     @IBAction func targetCurrencyValueChanged(_ sender: UITextField) {
         convertCurrencies(sender: sender)

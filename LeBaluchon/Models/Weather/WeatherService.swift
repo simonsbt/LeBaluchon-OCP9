@@ -24,6 +24,8 @@ class WeatherService {
     
     private var weatherSession = URLSession(configuration: .default)
     
+    /// Get the weather.
+    /// - Parameter callback: escape the function with a bool representing the success, an object containing an optionnal WeatherResponse and a String containing an optionnal error message.
     func getWeather(cityLatLon: String, callback: @escaping (Bool, WeatherResponse?, String?) -> Void) {
         
         let weatherUrl = URL(string: "https://api.openweathermap.org/data/2.5/weather?appid=\(apiKey)&\(cityLatLon)&\(units)&\(language)")!//
@@ -35,10 +37,7 @@ class WeatherService {
                     callback(false, nil, "Impossible de récupérer les données, merci de vérifier votre connexion internet.")
                     return
                 }
-                
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    // API Key error, Query parameters error
-                    
                     /// Try to decode the error received
                     guard let decodedErrorResponse = try? JSONDecoder().decode(WeatherError.self, from: data) else {
                         callback(false, nil, "Erreur inattendue.")
@@ -47,20 +46,19 @@ class WeatherService {
                     callback(false, nil, decodedErrorResponse.message)
                     return
                 }
-
                 guard let decodedResponse = try? JSONDecoder().decode(WeatherResponse.self, from: data) else {
                     callback(false, nil, "Erreur lors de la lecture de la réponse.")
                     return
                 }
-
                 let weatherResponse: WeatherResponse = decodedResponse
-
                 callback(true, weatherResponse, nil)
             }
         }
         task?.resume()
     }
     
+    /// Computed var returning the apiKey from config.plist.
+    /// Used to secure apiKey from Git commits.
     private var apiKey: String {
       get {
         // 1

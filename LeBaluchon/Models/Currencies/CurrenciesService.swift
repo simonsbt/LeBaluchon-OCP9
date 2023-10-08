@@ -35,12 +35,10 @@ class CurrenciesService {
                     callback(false)
                     return
                 }
-
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                     callback(false)
                     return
                 }
-
                 guard let decodedResponse = try? JSONDecoder().decode(CurrenciesResponse.self, from: data) else {
                     callback(false)
                     return
