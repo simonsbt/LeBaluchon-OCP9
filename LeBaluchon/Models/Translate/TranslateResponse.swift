@@ -42,5 +42,4 @@ struct TranslateError: Codable {
 struct TranslateErrorDetails: Codable {
     let code: Int
     let message: String
-    
 }

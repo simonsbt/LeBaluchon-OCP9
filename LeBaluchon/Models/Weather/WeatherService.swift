@@ -14,10 +14,6 @@ class WeatherService {
     static var shared = WeatherService()
     
     let citiesLatLon = ["lat=50.43333&lon=2.8333", "lat=40.7127&lon=-74.0059", "lat=35.0210700&lon=135.7538500"]
-
-    private let latLonLens = "lat=50.43333&lon=2.8333"
-    private let latLonNY = "lat=40.7127&lon=-74.0059"
-    private let latLonKyoto = "lat=35.0210700&lon=135.7538500"
     
     private let units = "units=metric"
     private let language = "lang=fr"
@@ -28,7 +24,7 @@ class WeatherService {
     /// - Parameter callback: escape the function with a bool representing the success, an object containing an optionnal WeatherResponse and a String containing an optionnal error message.
     func getWeather(cityLatLon: String, callback: @escaping (Bool, WeatherResponse?, String?) -> Void) {
         
-        let weatherUrl = URL(string: "https://api.openweathermap.org/data/2.5/weather?appid=\(apiKey)&\(cityLatLon)&\(units)&\(language)")!//
+        let weatherUrl = URL(string: "https://api.openweathermap.org/data/2.5/weather?appid=\(apiKey)&\(cityLatLon)&\(units)&\(language)")!
 
         task = weatherSession.dataTask(with: weatherUrl) { (data, response, error) in
 

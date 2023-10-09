@@ -17,7 +17,7 @@ class CurrenciesService {
     var rate: Double = 1.00
     
     private let baseCurrency = "base=EUR"
-    private let targetCurrencies = "symbols=USD,GBP,JPY,CAD" /* https://fr.wikipedia.org/wiki/ISO_4217#Liste_triée_par_nom_d’unité_monétaire */
+    private let targetCurrencies = "symbols=USD,GBP,JPY,CAD" // https://fr.wikipedia.org/wiki/ISO_4217#Liste_triée_par_nom_d’unité_monétaire
     
     private var session = URLSession(configuration: .default)
     
