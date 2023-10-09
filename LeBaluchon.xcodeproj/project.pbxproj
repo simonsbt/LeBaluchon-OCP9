@@ -174,7 +174,7 @@
 				08C8CBC22A6EDD4A00258B5F /* Info.plist */,
 				08C8CBE62A6EDE8200258B5F /* Views */,
 				08C8CBE52A6EDE7D00258B5F /* Models */,
-				08C8CBE42A6EDE4700258B5F /* Controller */,
+				08C8CBE42A6EDE4700258B5F /* Controllers */,
 				08C8CBED2A6EF51900258B5F /* Others */,
 			);
 			path = LeBaluchon;
@@ -201,14 +201,14 @@
 			path = LeBaluchonUITests;
 			sourceTree = "<group>";
 		};
-		08C8CBE42A6EDE4700258B5F /* Controller */ = {
+		08C8CBE42A6EDE4700258B5F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				08C8CBE72A6EE0EC00258B5F /* CurrenciesViewController.swift */,
 				0818633F2A7270B8005B390D /* TranslateViewController.swift */,
 				085B89522A8E8DA2002CC9B3 /* WeatherViewController.swift */,
 			);
-			path = Controller;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		08C8CBE52A6EDE7D00258B5F /* Models */ = {

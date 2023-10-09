@@ -9,16 +9,12 @@ import Foundation
 
 struct CurrenciesResponse: Codable {
     let success: Bool
-    let timestamp: Int64
     let base: String
-    let date: String
     let rates: [String: Double]
     
     init() {
         self.success = true
-        self.timestamp = 1
         self.base = ""
-        self.date = ""
         self.rates = ["": 1]
     }
     
