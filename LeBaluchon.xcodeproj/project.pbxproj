@@ -262,8 +262,8 @@
 		08ED61B52A9BA1BC00879FF9 /* Translate */ = {
 			isa = PBXGroup;
 			children = (
-				0818633B2A726A39005B390D /* TranslateResponse.swift */,
 				08DC36252A96AE63003C8F1D /* DetectLanguageResponse.swift */,
+				0818633B2A726A39005B390D /* TranslateResponse.swift */,
 				0818633D2A726A42005B390D /* TranslateService.swift */,
 			);
 			path = Translate;
