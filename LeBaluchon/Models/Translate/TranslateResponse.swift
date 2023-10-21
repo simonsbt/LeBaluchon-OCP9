@@ -34,12 +34,3 @@ struct Translation: Codable {
         self.translatedText = "Translation"
     }
 }
-
-struct TranslateError: Codable {
-    let error: TranslateErrorDetails
-}
-
-struct TranslateErrorDetails: Codable {
-    let code: Int
-    let message: String
-}

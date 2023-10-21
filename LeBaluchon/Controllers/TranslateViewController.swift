@@ -65,18 +65,25 @@ class TranslateViewController: UIViewController {
     }
     
     private func translate() {
-        TranslateService.shared.getTranslation { (success, translation, errorMessage) in
+        TranslateService.shared.performTranslateRequest { (success, translation) in
             if success, let translation = translation {
                 self.targetTextView.text = translation // Display the translation.
             } else {
-                self.presentAlert(title: "Erreur", message: errorMessage ?? "Erreur lors de la traduction.")
+                self.presentAlert(title: "Erreur", message: "Erreur lors de la traduction.")
             }
         }
+//        TranslateService.shared.getTranslation { (success, translation, errorMessage) in
+//            if success, let translation = translation {
+//                self.targetTextView.text = translation // Display the translation.
+//            } else {
+//                self.presentAlert(title: "Erreur", message: errorMessage ?? "Erreur lors de la traduction.")
+//            }
+//        }
     }
     
     /// Executed when the translateButton is tapped.
     private func detectLanguage() {
-        TranslateService.shared.detectLanguage { (success, detectedLanguage, errorMessage) in
+        TranslateService.shared.performDetectLanguageRequest { (success, detectedLanguage) in
             if success, let detectedLanguage = detectedLanguage {
                 if let language = Locale.current.localizedString(forLanguageCode: detectedLanguage) {
                     self.sourceLanguageLabel.text = "Détecter la langue : \(language)"
@@ -89,10 +96,27 @@ class TranslateViewController: UIViewController {
                     self.translate()
                 }
             } else {
-                self.presentAlert(title: "Erreur", message: errorMessage ?? "Erreur lors de la traduction.")
+                self.presentAlert(title: "Erreur", message: "Erreur lors de la traduction.")
             }
             self.showActivityIndicator(show: false)
         }
+//        TranslateService.shared.detectLanguage { (success, detectedLanguage, errorMessage) in
+//            if success, let detectedLanguage = detectedLanguage {
+//                if let language = Locale.current.localizedString(forLanguageCode: detectedLanguage) {
+//                    self.sourceLanguageLabel.text = "Détecter la langue : \(language)"
+//                }
+//                /// Translate an expression from a language to the same language doesn't work in this API
+//                if detectedLanguage == TranslateService.shared.targetLanguage {
+//                    self.targetTextView.text = TranslateService.shared.expressionToTranslate // Translate API can't traduce to a target language that is the same as the source language
+//                } else {
+//                    TranslateService.shared.sourceLanguage = detectedLanguage
+//                    self.translate()
+//                }
+//            } else {
+//                self.presentAlert(title: "Erreur", message: errorMessage ?? "Erreur lors de la traduction.")
+//            }
+//            self.showActivityIndicator(show: false)
+//        }
     }
 
     /// Used to hide/show the UIAtivityIndicatorView and the UITextFields.

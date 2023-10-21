@@ -81,14 +81,14 @@ class WeatherViewController: UIViewController {
         let citiesLatLon = WeatherService.shared.citiesLatLon
         if citiesLatLon.count == citiesView.count {
             for (index, element) in citiesLatLon.enumerated() {
-                WeatherService.shared.getWeather(cityLatLon: element, callback: { (success, weatherResponse, errorMessage) in
+                WeatherService.shared.performCurrenciesRequest(cityLatLon: element) { (success, weatherResponse) in
                     if success, let weatherResponse = weatherResponse {
                         self.displayWeatherInfos(weatherResponse: weatherResponse, tag: index)
                     } else {
-                        self.presentAlert(title: "Erreur", message: errorMessage ?? "Erreur lors de la récupération des données")
+                        self.presentAlert(title: "Erreur", message: "Erreur lors de la récupération des données")
                     }
                     self.activityIndicators[index].isHidden = true
-                })
+                }
             }
         }
     }

@@ -16,39 +16,29 @@ class CurrenciesService {
     let currencies = ["USD", "GBP", "JPY", "CAD"]
     var rate: Double = 1.00
     
-    private let baseCurrency = "base=EUR"
-    private let targetCurrencies = "symbols=USD,GBP,JPY,CAD" // https://fr.wikipedia.org/wiki/ISO_4217#Liste_triée_par_nom_d’unité_monétaire
+    let baseCurrency = "&base=EUR"
+    let targetCurrencies = "&symbols=USD,GBP,JPY,CAD" // https://fr.wikipedia.org/wiki/ISO_4217#Liste_triée_par_nom_d’unité_monétaire
+    let baseURL = "https://api.apilayer.com/fixer/latest?apikey="
     
     private var session = URLSession(configuration: .default)
     
-    /// Fetch the currencies rates.
-    /// - Parameter callback: escape the function with a bool representing the success.
-    func getCurrenciesRates(callback: @escaping (Bool) -> Void) {
+    func performCurrenciesRequest(completion: @escaping (Bool) -> Void) {
         
-        let currenciesUrl = URL(string: "https://api.apilayer.com/fixer/latest?apikey=\(apiKey)&\(baseCurrency)&\(targetCurrencies)")!
+        // Define the URL for API1
+        let currenciesURL = URL(string: "https://api.apilayer.com/fixer/latest?apikey=\(apiKey)&\(baseCurrency)&\(targetCurrencies)")!
+        var request = URLRequest(url: currenciesURL)
+        request.httpMethod = "GET"
         
-        task?.cancel()
-        task = session.dataTask(with: currenciesUrl) { (data, response, error) in
-
-            DispatchQueue.main.async {
-                guard let data = data, error == nil else {
-                    callback(false)
-                    return
-                }
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    callback(false)
-                    return
-                }
-                guard let decodedResponse = try? JSONDecoder().decode(CurrenciesResponse.self, from: data) else {
-                    callback(false)
-                    return
-                }
-                let currenciesResponse: CurrenciesResponse = decodedResponse
-                currenciesResponse.saveCurrenciesRates()
-                callback(true)
+        APICallServices.shared.performRequest(request: request, cancelTask: true) { (result: Result<CurrenciesResponse, Error>) in
+            switch(result) {
+            case .success(let response):
+                response.saveCurrenciesRates()
+                completion(true)
+            case .failure(let error):
+                print(error)
+                completion(false)
             }
         }
-        task?.resume()
     }
 
     /// Checks if the API has already been called during the day.
@@ -61,7 +51,7 @@ class CurrenciesService {
                 return
             }
         }
-        self.getCurrenciesRates { (success) in
+        self.performCurrenciesRequest { success in
             if success {
                 UserDefaults.standard.set(Date(), forKey: "lastAPICallDate") // Save the date of the call.
                 callback(true)

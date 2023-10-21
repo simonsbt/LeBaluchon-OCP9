@@ -34,7 +34,7 @@
                 <navigationController id="Pa0-ez-Dbj" userLabel="Translate" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Traduction" image="translate" id="6Sn-UD-cEt"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="qRa-P3-ayO">
-                        <rect key="frame" x="0.0" y="20" width="320" height="92.5"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="98.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -51,7 +51,7 @@
                 <navigationController id="2s8-S3-sqz" userLabel="Weather" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Météo" image="cloud.sun" catalog="system" selectedImage="cloud.sun" id="5VJ-8T-t7C"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="hsD-eM-6KC">
-                        <rect key="frame" x="0.0" y="20" width="320" height="92.5"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="98.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>

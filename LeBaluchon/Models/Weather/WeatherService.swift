@@ -20,37 +20,21 @@ class WeatherService {
     
     private var weatherSession = URLSession(configuration: .default)
     
-    /// Get the weather.
-    /// - Parameter callback: escape the function with a bool representing the success, an object containing an optionnal WeatherResponse and a String containing an optionnal error message.
-    func getWeather(cityLatLon: String, callback: @escaping (Bool, WeatherResponse?, String?) -> Void) {
+    func performCurrenciesRequest(cityLatLon: String, completion: @escaping (Bool, WeatherResponse?) -> Void) {
         
-        let weatherUrl = URL(string: "https://api.openweathermap.org/data/2.5/weather?appid=\(apiKey)&\(cityLatLon)&\(units)&\(language)")!
-
-        task = weatherSession.dataTask(with: weatherUrl) { (data, response, error) in
-
-            DispatchQueue.main.async {
-                guard let data = data, error == nil else {
-                    callback(false, nil, "Impossible de récupérer les données, merci de vérifier votre connexion internet.")
-                    return
-                }
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    /// Try to decode the error received
-                    guard let decodedErrorResponse = try? JSONDecoder().decode(WeatherError.self, from: data) else {
-                        callback(false, nil, "Erreur inattendue.")
-                        return
-                    }
-                    callback(false, nil, decodedErrorResponse.message)
-                    return
-                }
-                guard let decodedResponse = try? JSONDecoder().decode(WeatherResponse.self, from: data) else {
-                    callback(false, nil, "Erreur lors de la lecture de la réponse.")
-                    return
-                }
-                let weatherResponse: WeatherResponse = decodedResponse
-                callback(true, weatherResponse, nil)
+        let weatherURL = URL(string: "https://api.openweathermap.org/data/2.5/weather?appid=\(apiKey)&\(cityLatLon)&\(units)&\(language)")!
+        var request = URLRequest(url: weatherURL)
+        request.httpMethod = "GET"
+        
+        APICallServices.shared.performRequest(request: request, cancelTask: false) { (result: Result<WeatherResponse, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(true, response)
+            case .failure(let error):
+                print(error)
+                completion(false, nil)
             }
         }
-        task?.resume()
     }
     
     /// Computed var returning the apiKey from config.plist.
